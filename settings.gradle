@@ -1,2 +1,6 @@
 rootProject.name = 'point'
 
+include 'point-core'
+include 'point-api'
+include 'point-worker'
+include 'point-batch'

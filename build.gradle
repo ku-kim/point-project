@@ -1,19 +1,86 @@
 plugins {
     id 'java'
+    id 'org.springframework.boot' version '2.7.12' apply false
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'jacoco'
+    id "org.asciidoctor.jvm.convert" version "3.3.2" apply false
 }
 
-group 'com.github.kukim'
-version '1.0-SNAPSHOT'
-
-repositories {
-    mavenCentral()
+allprojects {
+    repositories {
+        mavenCentral()
+    }
 }
 
-dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+def commonSubProjects = [
+        project(":point-core"),
+        project(":point-api"),
+        project(":point-worker"),
+        project(":point-batch"),
+]
+
+configure(commonSubProjects) {
+    apply plugin: "java"
+    apply plugin: "org.springframework.boot"
+    apply plugin: "io.spring.dependency-management"
+    apply plugin: "jacoco"
+
+    group = "${projectGroup}"
+    version = "${projectVersion}-${new Date().format('yyyyMMddHHmm')}"
+
+    sourceCompatibility = 17
+    targetCompatibility = 17
+
+    dependencies {
+        compileOnly("org.projectlombok:lombok")
+        annotationProcessor("org.projectlombok:lombok")
+
+        implementation("org.springframework.boot:spring-boot-starter-logging")
+
+        testImplementation("org.springframework.boot:spring-boot-starter-test")
+//        testImplementation(testFixtures(project(":point-core")))
+    }
+
+    // jacoco
+    jacoco {
+        toolVersion = "0.8.6"
+    }
+
+    // test
+    test {
+        reports {
+            junitXml.enabled = true
+            html.enabled = true
+        }
+        jacoco {
+            enabled = true
+            destinationFile = file("${buildDir}/jacoco/jacoco.exec")
+        }
+        useJUnitPlatform()
+
+        finalizedBy jacocoTestReport
+    }
+
+    jacocoTestReport {
+        reports {
+            xml.enabled = true
+        }
+    }
 }
 
-test {
-    useJUnitPlatform()
-}
+//group 'com.github.kukim'
+//version '1.0-SNAPSHOT'
+
+//repositories {
+//    mavenCentral()
+//}
+
+//dependencies {
+//    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+//    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+//}
+//
+//test {
+//    useJUnitPlatform()
+//}
+
