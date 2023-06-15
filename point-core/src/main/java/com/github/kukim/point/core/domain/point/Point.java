@@ -1,4 +1,4 @@
-package com.github.kukim.point.core.domain.history;
+package com.github.kukim.point.core.domain.point;
 
 import com.github.kukim.point.core.common.BaseTimeEntity;
 import com.github.kukim.point.core.domain.type.EventDetailType;
@@ -15,22 +15,16 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-/**
- * Point 적립 / 사용 / 사용 취소 등 Point에 관련된 모든 Event 발생 시 insert 되는 도메인
- */
 @Getter
 @NoArgsConstructor
 @Entity
 @Table
-public class PointHistory extends BaseTimeEntity {
+public class Point extends BaseTimeEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "point_history_id")
+	@Column(name = "point_id")
 	private Long id;
-
-	@Column(nullable = false)
-	private String messageId;
 
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
@@ -42,27 +36,25 @@ public class PointHistory extends BaseTimeEntity {
 
 	@Column(nullable = false)
 	private Long savePoint;
+	@Column(nullable = false)
+	private Long remainPoint;
 
-	private Long cancelPointId;
-	private Long earnPointId;
-	private Long originPointId;
-
+	private String description;
 	private LocalDateTime expirationDate;
 
 	@Column(nullable = false)
 	private Long memberId;
 
-	public PointHistory(String messageId, EventType eventType, EventDetailType eventDetailType,
-		Long savePoint, Long cancelPointId, Long earnPointId, Long originPointId,
-		LocalDateTime expirationDate, Long memberId) {
-		this.messageId = messageId;
+	public Point(EventType eventType, EventDetailType eventDetailType, Long savePoint,
+		String description, LocalDateTime expirationDate, Long memberId) {
 		this.eventType = eventType;
 		this.eventDetailType = eventDetailType;
 		this.savePoint = savePoint;
-		this.cancelPointId = cancelPointId;
-		this.earnPointId = earnPointId;
-		this.originPointId = originPointId;
+		this.remainPoint = savePoint;
+		this.description = description;
 		this.expirationDate = expirationDate;
 		this.memberId = memberId;
 	}
+
+
 }
