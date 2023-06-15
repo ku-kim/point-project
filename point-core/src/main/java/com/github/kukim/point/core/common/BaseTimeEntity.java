@@ -1,4 +1,4 @@
-package com.github.kukim.point.core.domain.common;
+package com.github.kukim.point.core.common;
 
 import java.time.LocalDateTime;
 import javax.persistence.EntityListeners;
