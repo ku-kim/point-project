@@ -1,6 +1,6 @@
 package com.github.kukim.point.core.domain.point;
 
-import com.github.kukim.point.core.common.BaseTimeEntity;
+import com.github.kukim.point.core.domain.BaseTimeEntity;
 import com.github.kukim.point.core.domain.type.EventDetailType;
 import com.github.kukim.point.core.domain.type.EventType;
 import java.time.LocalDateTime;
