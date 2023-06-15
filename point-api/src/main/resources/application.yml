@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: point-api
+  profiles:
+    include:
+      - db
+      - server-port
+    group:
+      local: db-local,port-local
+      test: db-test
+    active: local
