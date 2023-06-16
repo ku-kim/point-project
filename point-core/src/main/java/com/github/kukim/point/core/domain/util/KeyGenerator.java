@@ -1,5 +1,7 @@
 package com.github.kukim.point.core.domain.util;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 public abstract class KeyGenerator {
@@ -7,8 +9,12 @@ public abstract class KeyGenerator {
 		throw new IllegalArgumentException("Utility class");
 	}
 
-	public static String generateUuid() {
-		return UUID.randomUUID().toString();
+	public static String generateUUID() {
+		LocalDateTime localDate = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+		String now = localDate.format(formatter);
+
+		return now + "-" + UUID.randomUUID().toString().substring(0, 8);
 	}
 
 }

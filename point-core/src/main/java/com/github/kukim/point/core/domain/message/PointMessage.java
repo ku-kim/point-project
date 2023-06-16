@@ -30,10 +30,11 @@ public class PointMessage {
 		this.memberId = memberId;
 	}
 
-	public static PointMessage create(@Nonnull String tradeNo, @Nonnull EventType eventType, @Nonnull EventDetailType eventDetailType,
+	public static PointMessage create(@Nonnull String tradeNo, @Nonnull EventType eventType,
+		@Nonnull EventDetailType eventDetailType,
 		@Nonnull Long point, String description, @Nonnull Long memberId) {
 		return
-			new PointMessage(KeyGenerator.generateUuid(),
+			new PointMessage(KeyGenerator.generateUUID(),
 				tradeNo,
 				eventType,
 				eventDetailType,

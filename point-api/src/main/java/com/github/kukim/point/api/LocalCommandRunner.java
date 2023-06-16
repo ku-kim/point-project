@@ -56,12 +56,12 @@ public class LocalCommandRunner implements CommandLineRunner {
 		points.add(new Point(EventType.SAVE, EventDetailType.USE_BUY, -200L, "상품 CC 구입 후 적립", LocalDateTime.now().plusYears(1), 3L));
 
 		List<PointHistory> pointHistories = new ArrayList<>();
-		pointHistories.add(new PointHistory(KeyGenerator.generateUuid(), EventType.SAVE, EventDetailType.SAVE_EVENT, 100L, null, null, null, LocalDateTime.now().plusDays(1), 1L));
-		pointHistories.add(new PointHistory(KeyGenerator.generateUuid(), EventType.SAVE, EventDetailType.SAVE_EVENT, 100L, null, null, null, LocalDateTime.now().plusYears(1), 1L));
-		pointHistories.add(new PointHistory(KeyGenerator.generateUuid(), EventType.SAVE, EventDetailType.SAVE_EVENT, 100L, null, null, null, LocalDateTime.now().plusYears(1), 2L));
-		pointHistories.add(new PointHistory(KeyGenerator.generateUuid(), EventType.SAVE, EventDetailType.SAVE_EVENT, 100L, null, null, null, LocalDateTime.now().plusYears(1), 2L));
-		pointHistories.add(new PointHistory(KeyGenerator.generateUuid(), EventType.SAVE, EventDetailType.SAVE_EVENT, 100L, null, null, null, LocalDateTime.now().plusYears(1), 3L));
-		pointHistories.add(new PointHistory(KeyGenerator.generateUuid(), EventType.SAVE, EventDetailType.SAVE_EVENT, 100L, null, null, null, LocalDateTime.now().plusYears(1), 3L));
+		pointHistories.add(new PointHistory(KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.SAVE_EVENT, 100L, null, null, null, LocalDateTime.now().plusDays(1), 1L));
+		pointHistories.add(new PointHistory(KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.SAVE_EVENT, 100L, null, null, null, LocalDateTime.now().plusYears(1), 1L));
+		pointHistories.add(new PointHistory(KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.SAVE_EVENT, 100L, null, null, null, LocalDateTime.now().plusYears(1), 2L));
+		pointHistories.add(new PointHistory(KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.SAVE_EVENT, 100L, null, null, null, LocalDateTime.now().plusYears(1), 2L));
+		pointHistories.add(new PointHistory(KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.SAVE_EVENT, 100L, null, null, null, LocalDateTime.now().plusYears(1), 3L));
+		pointHistories.add(new PointHistory(KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.SAVE_EVENT, 100L, null, null, null, LocalDateTime.now().plusYears(1), 3L));
 
 		// TODO: Point History 상세 내역 추가
 
