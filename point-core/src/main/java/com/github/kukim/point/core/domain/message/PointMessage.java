@@ -6,9 +6,11 @@ import com.github.kukim.point.core.domain.util.KeyGenerator;
 import javax.annotation.Nonnull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Getter
 @NoArgsConstructor
+@ToString
 public class PointMessage {
 
 	private String messageId;

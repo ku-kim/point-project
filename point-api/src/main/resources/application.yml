@@ -5,7 +5,8 @@ spring:
     include:
       - db
       - server-port
+      - aws-sqs
     group:
-      local: db-local,port-local
+      local: db-local,port-local,aws-sqs-producer-local
       test: db-test
     active: local

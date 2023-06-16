@@ -2,9 +2,8 @@ description("point-api module")
 
 dependencies {
     implementation(project(":point-core"))
+    implementation(project(":clients"))
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-validation")
-
-    testImplementation(testFixtures(project(":point-core")))
 }

@@ -1,0 +1,47 @@
+---
+spring:
+  config:
+    activate:
+      on-profile: aws-sqs-producer-local
+cloud:
+  aws:
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+# Embedded SQS reference: https://github.com/jojoldu/spring-boot-aws-mock
+sqs:
+  mock:
+    enabled: true
+  queues:
+    -
+      name: 'point-command-dlq'
+    -
+      name: 'point-command'
+      defaultVisibilityTimeout: 10
+      delay: 0
+      receiveMessageWait: 0
+      deadLettersQueue:
+        name: "point-command-dlq"
+        maxReceiveCount: 5
+---
+spring:
+  config:
+    activate:
+      on-profile: aws-sqs-consumer-local
+cloud:
+  aws:
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+sqs:
+  mock:
+    enabled: true
+aws:
+  sqs:
+    queue:
+      point-command: 'point-command'
+      point-command-dlq: 'point-command-dlq'
+
+

@@ -1,0 +1,22 @@
+plugins {
+    id 'org.springframework.boot'
+    id 'java-test-fixtures'
+}
+
+apply plugin: "java-library"
+
+bootJar { enabled = false }
+jar { enabled = true }
+
+description("clients module")
+
+dependencies {
+    implementation(project(":point-core"))
+
+    implementation("org.springframework.boot:spring-boot-starter")
+    implementation("org.springframework.boot:spring-boot-configuration-processor")
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+
+    api("io.awspring.cloud:spring-cloud-starter-aws-messaging")
+    api("com.github.jojoldu.spring-boot-aws-mock:mock-sqs-spring-boot-starter:0.4.1")
+}
