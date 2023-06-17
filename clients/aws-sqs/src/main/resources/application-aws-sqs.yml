@@ -15,21 +15,23 @@ sqs:
     enabled: true
   queues:
     -
-      name: 'point-command-dlq'
+      name: 'point-earn-dlq'
     -
-      name: 'point-command'
+      name: 'point-earn'
       defaultVisibilityTimeout: 10
       delay: 0
       receiveMessageWait: 0
       deadLettersQueue:
-        name: "point-command-dlq"
+        name: "point-earn-dlq"
         maxReceiveCount: 5
+    -
+      name: 'point-cache'
 aws:
   sqs:
     queue:
-      point-command: 'point-command'
-      point-command-dlq: 'point-command-dlq'
-
+      point-earn: 'point-earn'
+      point-earn-dlq: 'point-earn-dlq'
+      point-cache: 'point-cache'
 ---
 spring:
   config:
@@ -45,5 +47,6 @@ sqs:
 aws:
   sqs:
     queue:
-      point-command: 'point-command'
-      point-command-dlq: 'point-command-dlq'
+      point-earn: 'point-earn'
+      point-earn-dlq: 'point-earn-dlq'
+      point-cache: 'point-cache'

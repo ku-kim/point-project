@@ -23,7 +23,7 @@ public class PointEarnFacade {
 		PointMessage message = PointMessage.create(command.getTradeId(), command.getEventType(),
 			command.getEventDetailType(), command.getEarnPoint(), command.getDescription(),
 			memberId);
-		queueMessageSender.sendMessage(awsSqsQueueProperties.getPointCommand(),
+		queueMessageSender.sendMessage(awsSqsQueueProperties.getPointEarn(),
 			message);
 
 		return PointMessageDto.of(message);

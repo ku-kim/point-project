@@ -1,4 +1,4 @@
-package com.github.kukim.point.redis.config;
+package com.github.kukim.point.core.config;
 
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.context.annotation.Bean;
@@ -11,7 +11,7 @@ import org.springframework.data.redis.repository.configuration.EnableRedisReposi
 
 @Profile("local")
 @Configuration
-@EnableRedisRepositories
+@EnableRedisRepositories(basePackages = {"com.github.kukim.point.core.domain"})
 public class RedisConfig {
 
 	private final RedisProperties redisProperties;
