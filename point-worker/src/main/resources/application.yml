@@ -6,7 +6,8 @@ spring:
       - db
       - server-port
       - aws-sqs
+      - redis
     group:
-      local: db-local,port-local,aws-sqs-consumer-local
+      local: db-local,port-local,aws-sqs-consumer-local,redis-local
       test: db-test
     active: local

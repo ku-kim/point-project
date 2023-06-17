@@ -8,7 +8,7 @@ apply plugin: "java-library"
 bootJar { enabled = false }
 jar { enabled = true }
 
-description("clients module")
+description("clients:aws-sqs module")
 
 dependencies {
     implementation(project(":point-core"))

@@ -4,4 +4,7 @@ include 'point-core'
 include 'point-api'
 include 'point-worker'
 include 'point-batch'
-include 'clients'
+include 'clients:aws-sqs'
+include 'clients:redis'
+findProject(':clients:redis')?.name = 'redis'
+

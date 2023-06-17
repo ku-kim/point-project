@@ -1,0 +1,8 @@
+---
+spring:
+  config:
+    activate:
+      on-profile: redis-local,redis-test
+  redis:
+    host: 127.0.0.1
+    port: 6389

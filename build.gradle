@@ -18,7 +18,8 @@ def commonSubProjects = [
         project(":point-api"),
         project(":point-worker"),
         project(":point-batch"),
-        project(":clients"),
+        project(":clients:aws-sqs"),
+        project(":clients:redis"),
 ]
 
 configure(commonSubProjects) {
