@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public abstract class KeyGenerator {
 	private KeyGenerator() {
-		throw new IllegalArgumentException("Utility class");
+		throw new IllegalStateException("Utility class");
 	}
 
 	public static String generateUUID() {
