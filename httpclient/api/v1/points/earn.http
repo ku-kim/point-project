@@ -1,0 +1,75 @@
+# 포인트 적립 API: POST /api/v1/points/earn
+
+### 포인트 적립 API 요청 성공: POST /api/v1/points/earn
+POST {{point-api-host}}/api/v1/points/earn
+Content-Type: application/json
+X_MEMBER_ID: 10
+
+{
+  "tradeId": "{{$uuid}}",
+  "eventType": "SAVE",
+  "eventDetailType": "SAVE_EVENT",
+  "earnPoint": 100,
+  "description": "로그인 적립"
+}
+
+> {%
+    client.test("Status code is 200", function (){
+        client.assert(response.status === 200, "Response status is not 200")
+    });
+
+    client.test("Check count", function (){
+        var jsonData = response.body
+        client.assert(jsonData.code === "000")
+        client.assert(jsonData.message === "정상 처리")
+        client.assert(jsonData.data.memberId === 10)
+    });
+%}
+
+### 포인트 적립 API 요청 실패(memberId가 없는 경우): POST /api/v1/points/earn
+POST {{point-api-host}}/api/v1/points/earn
+Content-Type: application/json
+
+{
+  "eventType": "SAVE",
+  "eventDetailType": "SAVE_EVENT",
+  "earnPoint": 100,
+  "description": "로그인 적립"
+}
+
+> {%
+    client.test("Status code is 200", function (){
+        client.assert(response.status === 400, "Response status is not 400")
+    });
+
+    client.test("Check count", function (){
+        var jsonData = response.body
+        client.assert(jsonData.code === "S001")
+        client.assert(jsonData.message === "요청 값 확인 필요")
+    });
+%}
+
+
+### 포인트 적립 API 요청 실패(tradeId 없는 경우): POST /api/v1/points/earn
+POST {{point-api-host}}/api/v1/points/earn
+Content-Type: application/json
+X_MEMBER_ID: 10
+
+{
+  "eventType": "SAVE",
+  "eventDetailType": "SAVE_EVENT",
+  "earnPoint": 100,
+  "description": "로그인 적립"
+}
+
+> {%
+    client.test("Status code is 200", function (){
+        client.assert(response.status === 400, "Response status is not 400")
+    });
+
+    client.test("Check count", function (){
+        var jsonData = response.body
+        client.assert(jsonData.code === "S001")
+        client.assert(jsonData.message === "요청 값 확인 필요")
+    });
+%}
