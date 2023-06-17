@@ -13,12 +13,15 @@ import org.springframework.validation.annotation.Validated;
 public class AwsSqsQueueProperties {
 
 	@NotEmpty
-	private final String pointCommand;
+	private final String pointEarn;
 	@NotEmpty
-	private final String pointCommandDlq;
+	private final String pointEarnDlq;
+	@NotEmpty
+	private final String pointCache;
 
-	public AwsSqsQueueProperties(String pointCommand, String pointCommandDlq) {
-		this.pointCommand = pointCommand;
-		this.pointCommandDlq = pointCommandDlq;
+	public AwsSqsQueueProperties(String pointEarn, String pointEarnDlq, String pointCache) {
+		this.pointEarn = pointEarn;
+		this.pointEarnDlq = pointEarnDlq;
+		this.pointCache = pointCache;
 	}
 }

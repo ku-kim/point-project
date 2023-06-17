@@ -5,7 +5,7 @@ import com.amazonaws.services.sqs.AmazonSQSAsync;
 import com.amazonaws.services.sqs.AmazonSQSAsyncClientBuilder;
 import com.github.kukim.point.clients.aws.config.AwsResourceConfig;
 import com.github.kukim.point.core.config.CoreConfig;
-import com.github.kukim.point.redis.config.RedisConfig;
+import com.github.kukim.point.core.config.RedisConfig;
 import io.awspring.cloud.messaging.core.QueueMessagingTemplate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
