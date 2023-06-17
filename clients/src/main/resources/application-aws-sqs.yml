@@ -39,15 +39,11 @@ cloud:
   aws:
     region:
       static: ap-northeast-2
-    stack:
-      auto: false
 sqs:
   mock:
-    enabled: true
+    enabled: false
 aws:
   sqs:
     queue:
       point-command: 'point-command'
       point-command-dlq: 'point-command-dlq'
-
-

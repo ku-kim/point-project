@@ -3,6 +3,7 @@ package com.github.kukim.point.core.domain.history;
 import com.github.kukim.point.core.domain.BaseTimeEntity;
 import com.github.kukim.point.core.domain.type.EventDetailType;
 import com.github.kukim.point.core.domain.type.EventType;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -41,11 +42,11 @@ public class PointHistory extends BaseTimeEntity {
 	private EventDetailType eventDetailType;
 
 	@Column(nullable = false)
-	private Long savePoint;
+	private BigDecimal savePoint;
 
-	private Long cancelPointId;
-	private Long earnPointId;
-	private Long originPointId;
+	private String cancelPointId;
+	private String earnPointId;
+	private String originPointId;
 
 	private LocalDateTime expirationDate;
 
@@ -53,7 +54,7 @@ public class PointHistory extends BaseTimeEntity {
 	private Long memberId;
 
 	public PointHistory(String messageId, EventType eventType, EventDetailType eventDetailType,
-		Long savePoint, Long cancelPointId, Long earnPointId, Long originPointId,
+		BigDecimal savePoint, String cancelPointId, String earnPointId, String originPointId,
 		LocalDateTime expirationDate, Long memberId) {
 		this.messageId = messageId;
 		this.eventType = eventType;

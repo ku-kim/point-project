@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: point-api
+  profiles:
+    include:
+      - db
+      - server-port
+      - aws-sqs
+    group:
+      local: db-local,port-local,aws-sqs-consumer-local
+      test: db-test
+    active: local

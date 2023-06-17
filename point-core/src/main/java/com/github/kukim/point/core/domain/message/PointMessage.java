@@ -1,9 +1,11 @@
 package com.github.kukim.point.core.domain.message;
 
+import com.github.kukim.point.core.domain.point.Point;
 import com.github.kukim.point.core.domain.type.EventDetailType;
 import com.github.kukim.point.core.domain.type.EventType;
 import com.github.kukim.point.core.domain.util.KeyGenerator;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import javax.annotation.Nonnull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -46,5 +48,9 @@ public class PointMessage {
 				memberId);
 	}
 
+	public Point toPoint() {
+		return new Point(messageId, eventType, eventDetailType, point, description,
+			LocalDateTime.now().plusYears(1), memberId);
+	}
 
 }

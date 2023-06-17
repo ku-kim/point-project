@@ -18,6 +18,7 @@ public class QueueMessageSender {
 	public void sendMessage(String queueName, Object message) {
 		try {
 			queueMessagingTemplate.convertAndSend(queueName, message);
+			log.info("[point-api][queue-message]메시지 전송 성공: {}", message);
 		} catch (Exception e) {
 			log.error("[point-api][queue-message]메시지 전송 실패: {}", message, e);
 			throw new QueueMessageException(e);

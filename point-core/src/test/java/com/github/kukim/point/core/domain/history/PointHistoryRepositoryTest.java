@@ -4,6 +4,7 @@ import com.github.kukim.point.core.CoreTestConfiguration;
 import com.github.kukim.point.core.annotation.InMemoryDBJpaTest;
 import com.github.kukim.point.core.domain.type.EventDetailType;
 import com.github.kukim.point.core.domain.type.EventType;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.DisplayName;
@@ -25,8 +26,8 @@ class PointHistoryRepositoryTest {
 	@DisplayName("pointHistory repository save 확인")
 	void testSave() {
 		PointHistory history = new PointHistory("abcd", EventType.SAVE, EventDetailType.SAVE_EVENT,
-			100L,
-			1L, 1L, 1L, LocalDateTime.now(), 10L);
+			BigDecimal.valueOf(100L),
+			null, null, null, LocalDateTime.now(), 10L);
 
 		pointHistoryRepository.save(history);
 

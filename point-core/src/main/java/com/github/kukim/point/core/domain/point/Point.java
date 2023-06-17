@@ -1,8 +1,11 @@
 package com.github.kukim.point.core.domain.point;
 
 import com.github.kukim.point.core.domain.BaseTimeEntity;
+import com.github.kukim.point.core.domain.history.PointHistory;
 import com.github.kukim.point.core.domain.type.EventDetailType;
 import com.github.kukim.point.core.domain.type.EventType;
+import com.github.kukim.point.core.domain.util.KeyGenerator;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,6 +30,11 @@ public class Point extends BaseTimeEntity {
 	private Long id;
 
 	@Column(nullable = false)
+	private String searchId;
+	@Column(nullable = false)
+	private String messageId;
+
+	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private EventType eventType;
 
@@ -35,9 +43,7 @@ public class Point extends BaseTimeEntity {
 	private EventDetailType eventDetailType;
 
 	@Column(nullable = false)
-	private Long savePoint;
-	@Column(nullable = false)
-	private Long remainPoint;
+	private BigDecimal savePoint;
 
 	private String description;
 	private LocalDateTime expirationDate;
@@ -45,16 +51,21 @@ public class Point extends BaseTimeEntity {
 	@Column(nullable = false)
 	private Long memberId;
 
-	public Point(EventType eventType, EventDetailType eventDetailType, Long savePoint,
+	public Point(String messageId, EventType eventType, EventDetailType eventDetailType,
+		BigDecimal savePoint,
 		String description, LocalDateTime expirationDate, Long memberId) {
+		this.searchId = KeyGenerator.generateUUID();
+		this.messageId = messageId;
 		this.eventType = eventType;
 		this.eventDetailType = eventDetailType;
 		this.savePoint = savePoint;
-		this.remainPoint = savePoint;
 		this.description = description;
 		this.expirationDate = expirationDate;
 		this.memberId = memberId;
 	}
 
-
+	public PointHistory toEarnPointHistory() {
+		return new PointHistory(messageId, eventType, eventDetailType, savePoint, searchId,
+			searchId, searchId, expirationDate, memberId);
+	}
 }
