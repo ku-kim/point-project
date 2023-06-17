@@ -24,6 +24,12 @@ sqs:
       deadLettersQueue:
         name: "point-command-dlq"
         maxReceiveCount: 5
+aws:
+  sqs:
+    queue:
+      point-command: 'point-command'
+      point-command-dlq: 'point-command-dlq'
+
 ---
 spring:
   config:

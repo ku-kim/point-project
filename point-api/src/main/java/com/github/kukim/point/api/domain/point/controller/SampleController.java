@@ -3,13 +3,13 @@ package com.github.kukim.point.api.domain.point.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.kukim.point.core.domain.message.PointMessage;
-import com.github.kukim.point.core.domain.point.PointRepository;
 import com.github.kukim.point.core.domain.type.EventDetailType;
 import com.github.kukim.point.core.domain.type.EventType;
 import io.awspring.cloud.messaging.core.QueueMessagingTemplate;
 import io.awspring.cloud.messaging.listener.Acknowledgment;
 import io.awspring.cloud.messaging.listener.SqsMessageDeletionPolicy;
 import io.awspring.cloud.messaging.listener.annotation.SqsListener;
+import java.math.BigDecimal;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Profile("local")
 public class SampleController {
-	
+
 	@Autowired
 	private QueueMessagingTemplate messagingTemplate;
 
@@ -35,7 +35,7 @@ public class SampleController {
 	public String save() {
 		String queueName = "point-command";
 		PointMessage pointMessage = PointMessage.create("0000001", EventType.SAVE,
-			EventDetailType.SAVE_EVENT, 100L, "로그인 적립",
+			EventDetailType.SAVE_EVENT, BigDecimal.valueOf(100L), "로그인 적립",
 			10L);
 		messagingTemplate.convertAndSend(queueName, pointMessage);
 		log.info("메시지를 보냈습니다.. message= {}", pointMessage);
