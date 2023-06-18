@@ -1,6 +1,7 @@
 package com.github.kukim.point.core.domain.point;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,4 +25,7 @@ public interface PointRepository extends JpaRepository<Point, Long> {
 		ORDER BY p.createdDate DESC
 		""")
 	Page<Point> findAllByMemberIdEventTypeNotCancel(Long memberId, Pageable pageable);
+
+	Optional<Point> findByTradeId(String tradeNo);
+
 }

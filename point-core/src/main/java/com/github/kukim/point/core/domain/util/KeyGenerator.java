@@ -11,7 +11,7 @@ public abstract class KeyGenerator {
 
 	public static String generateUUID() {
 		LocalDateTime localDate = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSS");
 		String now = localDate.format(formatter);
 
 		return now + "-" + UUID.randomUUID().toString().substring(0, 8);

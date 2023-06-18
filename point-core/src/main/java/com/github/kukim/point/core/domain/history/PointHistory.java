@@ -3,6 +3,7 @@ package com.github.kukim.point.core.domain.history;
 import com.github.kukim.point.core.domain.BaseTimeEntity;
 import com.github.kukim.point.core.domain.type.EventDetailType;
 import com.github.kukim.point.core.domain.type.EventType;
+import com.github.kukim.point.core.domain.util.KeyGenerator;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
@@ -65,5 +66,31 @@ public class PointHistory extends BaseTimeEntity {
 		this.originPointId = originPointId;
 		this.expirationDate = expirationDate;
 		this.memberId = memberId;
+	}
+
+	public static PointHistory createRedeemBy(String messageId, EventType eventType,
+		EventDetailType eventDetailType, BigDecimal redeemPoint, String earnPointId,
+		String searchId, LocalDateTime expirationDate,
+		Long memberId) {
+		String key = "h-" + KeyGenerator.generateUUID();
+		return new PointHistory(messageId, eventType, eventDetailType, redeemPoint, key,
+			earnPointId, searchId, expirationDate, memberId);
+	}
+
+	// Only 디버깅용
+	@Override
+	public String toString() {
+		return "PointHistory{" +
+			"id=" + id +
+			", messageId='" + messageId + '\'' +
+			", eventType=" + eventType +
+			", eventDetailType=" + eventDetailType +
+			", savePoint=" + savePoint +
+			", cancelPointId='" + cancelPointId + '\'' +
+			", earnPointId='" + earnPointId + '\'' +
+			", originPointId='" + originPointId + '\'' +
+			", expirationDate=" + expirationDate +
+			", memberId=" + memberId +
+			'}';
 	}
 }

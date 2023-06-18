@@ -8,6 +8,7 @@ public enum PointApplicationErrorCode {
 	POINT_CAL_EXCEPTION("S100", "포인트 계산 음수 오류 발생"),
 
 	POINT_INSUFFICIENT_POINT_BALANCE_EXCEPTION("P100", "잔액이 부족합니다."),
+	POINT_NOTFOUND_RECEIPT_EXCEPTION("P101", "Point Receipt를 발견하지 못했습니다."),
 
 	QUEUE_EXCEPTION("Q100", "큐 메세지 전송 중 오류 발생"),
 	;
