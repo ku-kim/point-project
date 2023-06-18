@@ -18,10 +18,14 @@ public class AwsSqsQueueProperties {
 	private final String pointEarnDlq;
 	@NotEmpty
 	private final String pointCache;
+	@NotEmpty
+	private final String pointRedeem;
 
-	public AwsSqsQueueProperties(String pointEarn, String pointEarnDlq, String pointCache) {
+	public AwsSqsQueueProperties(String pointEarn, String pointEarnDlq, String pointCache,
+		String pointRedeem) {
 		this.pointEarn = pointEarn;
 		this.pointEarnDlq = pointEarnDlq;
 		this.pointCache = pointCache;
+		this.pointRedeem = pointRedeem;
 	}
 }

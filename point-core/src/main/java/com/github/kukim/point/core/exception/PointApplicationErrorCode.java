@@ -6,6 +6,9 @@ public enum PointApplicationErrorCode {
 
 	SORT_UNSUPPORTED_OPERATION_Exception("S101", "정렬을 허용하지 않습니다."),
 	POINT_CAL_EXCEPTION("S100", "포인트 계산 음수 오류 발생"),
+
+	POINT_INSUFFICIENT_POINT_BALANCE_EXCEPTION("P100", "잔액이 부족합니다."),
+
 	QUEUE_EXCEPTION("Q100", "큐 메세지 전송 중 오류 발생"),
 	;
 

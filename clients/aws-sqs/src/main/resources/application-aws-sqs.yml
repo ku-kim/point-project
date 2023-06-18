@@ -26,12 +26,15 @@ sqs:
         maxReceiveCount: 5
     -
       name: 'point-cache'
+    -
+      name: 'point-redeem'
 aws:
   sqs:
     queue:
       point-earn: 'point-earn'
       point-earn-dlq: 'point-earn-dlq'
       point-cache: 'point-cache'
+      point-redeem: 'point-redeem'
 ---
 spring:
   config:
@@ -50,3 +53,4 @@ aws:
       point-earn: 'point-earn'
       point-earn-dlq: 'point-earn-dlq'
       point-cache: 'point-cache'
+      point-redeem: 'point-redeem'

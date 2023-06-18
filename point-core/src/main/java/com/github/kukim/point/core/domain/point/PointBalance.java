@@ -1,8 +1,10 @@
 package com.github.kukim.point.core.domain.point;
 
+import com.github.kukim.point.core.exception.InsufficientPointBalanceException;
 import com.github.kukim.point.core.exception.PointBalanceNegativeNumberException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import javax.persistence.Id;
 import lombok.Getter;
 import org.springframework.data.redis.core.RedisHash;
@@ -33,6 +35,7 @@ public class PointBalance {
 	}
 
 	private static void checkNegativePoint(BigDecimal point) {
+		checkNullPointer(point);
 		if (point.signum() == -1) {
 			throw new PointBalanceNegativeNumberException();
 		}
@@ -45,5 +48,18 @@ public class PointBalance {
 			", point=" + point +
 			", updatedAt=" + updatedAt +
 			'}';
+	}
+
+	public void checkPointAvailability(BigDecimal redeemPoint) {
+		checkNullPointer(redeemPoint);
+		if (point.add(redeemPoint).signum() == -1) {
+			throw new InsufficientPointBalanceException();
+		}
+	}
+
+	private static void checkNullPointer(BigDecimal redeemPoint) {
+		if (Objects.isNull(redeemPoint)) {
+			throw new NullPointerException("입력한 포인트가 비어있습니다.");
+		}
 	}
 }

@@ -8,12 +8,12 @@ import com.github.kukim.point.core.domain.message.dto.PointMessageDto;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PointEarnFacade {
+public class PointEarnService {
 
 	private final QueueMessageSender queueMessageSender;
 	private final AwsSqsQueueProperties awsSqsQueueProperties;
 
-	public PointEarnFacade(QueueMessageSender queueMessageSender,
+	public PointEarnService(QueueMessageSender queueMessageSender,
 		AwsSqsQueueProperties awsSqsQueueProperties) {
 		this.queueMessageSender = queueMessageSender;
 		this.awsSqsQueueProperties = awsSqsQueueProperties;

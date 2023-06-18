@@ -2,6 +2,7 @@ package com.github.kukim.point.api.domain.member.controller.dto;
 
 import com.github.kukim.point.core.domain.point.PointBalance;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -21,5 +22,9 @@ public class MemberPointBalanceDto {
 
 	public static MemberPointBalanceDto of(PointBalance pointBalance) {
 		return new MemberPointBalanceDto(pointBalance.getId(), pointBalance.getPoint());
+	}
+
+	public PointBalance toEntity() {
+		return new PointBalance(this.memberId, this.point, LocalDateTime.now());
 	}
 }

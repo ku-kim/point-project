@@ -32,19 +32,31 @@ public class MemberService implements MemberFinder {
 	@Override
 	@Transactional(readOnly = true)
 	public MemberPointBalanceDto readBalance(Long memberId) {
-		PointBalance cache;
+		PointBalance pointBalance;
 
-		Optional<PointBalance> pointCache = pointCacheRepository.findById(memberId);
-		if (pointCache.isPresent()) {
-			cache = pointCache.get();
-			log.info("[point-api] pointCache cache Hit: {}", cache);
+		Optional<PointBalance> curPointBalance = pointCacheRepository.findById(memberId);
+		if (curPointBalance.isPresent()) {
+			pointBalance = curPointBalance.get();
+			log.info("[point-api] curPointBalance cache Hit: {}", pointBalance);
 		}
 
 		BigDecimal sumPoint = pointRepository.sumPointByMemberId(memberId);
-		cache = new PointBalance(memberId, sumPoint, LocalDateTime.now());
-		log.info("[point-api] pointCache cache MISS: {}", cache);
+		pointBalance = new PointBalance(memberId, sumPoint, LocalDateTime.now());
+		log.info("[point-api] curPointBalance cache MISS: {}", pointBalance);
 
-		return MemberPointBalanceDto.of(cache);
+		return MemberPointBalanceDto.of(pointBalance);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public MemberPointBalanceDto readBalanceNoCache(Long memberId) {
+		PointBalance pointBalance;
+
+		BigDecimal sumPoint = pointRepository.sumPointByMemberId(memberId);
+		pointBalance = new PointBalance(memberId, sumPoint, LocalDateTime.now());
+		log.info("[point-api] curPointBalance real DB: {}", pointBalance);
+
+		return MemberPointBalanceDto.of(pointBalance);
 	}
 
 	@Override

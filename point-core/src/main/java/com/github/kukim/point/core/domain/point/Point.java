@@ -71,4 +71,21 @@ public class Point extends BaseTimeEntity {
 		return new PointHistory(messageId, eventType, eventDetailType, savePoint, searchId,
 			searchId, searchId, expirationDate, memberId);
 	}
+
+	// TODO: Only 디버깅용
+	@Override
+	public String toString() {
+		return "Point{" +
+			"id=" + id +
+			", searchId='" + searchId + '\'' +
+			", tradeId='" + tradeId + '\'' +
+			", messageId='" + messageId + '\'' +
+			", eventType=" + eventType +
+			", eventDetailType=" + eventDetailType +
+			", savePoint=" + savePoint +
+			", description='" + description + '\'' +
+			", expirationDate=" + expirationDate +
+			", memberId=" + memberId +
+			'}';
+	}
 }
