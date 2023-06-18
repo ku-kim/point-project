@@ -41,15 +41,6 @@ public class PointBalance {
 		}
 	}
 
-	@Override
-	public String toString() {
-		return "PointCache{" +
-			"id=" + id +
-			", point=" + point +
-			", updatedAt=" + updatedAt +
-			'}';
-	}
-
 	public void checkPointAvailability(BigDecimal redeemPoint) {
 		checkNullPointer(redeemPoint);
 		if (point.add(redeemPoint).signum() == -1) {
@@ -61,5 +52,14 @@ public class PointBalance {
 		if (Objects.isNull(redeemPoint)) {
 			throw new NullPointerException("입력한 포인트가 비어있습니다.");
 		}
+	}
+
+	@Override
+	public String toString() {
+		return "PointCache{" +
+			"id=" + id +
+			", point=" + point +
+			", updatedAt=" + updatedAt +
+			'}';
 	}
 }

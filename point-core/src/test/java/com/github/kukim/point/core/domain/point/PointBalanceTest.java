@@ -3,6 +3,7 @@ package com.github.kukim.point.core.domain.point;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import com.github.kukim.point.core.exception.InsufficientPointBalanceException;
 import com.github.kukim.point.core.exception.PointBalanceNegativeNumberException;
 import java.math.BigDecimal;
 import java.util.stream.Stream;
@@ -10,6 +11,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -51,5 +53,16 @@ class PointBalanceTest {
 			Arguments.of(new PointBalance(null, new BigDecimal(10.5), null), new BigDecimal(200),
 				new BigDecimal(210.5))
 		);
+	}
+
+	@DisplayName("만약 현재 자산보다 더 많은 금액을 사용하려한다면 exception을 발생시킨다. ")
+	@ParameterizedTest
+	@CsvSource(value = {"100,-200", "5000,-20000", "400,-401"})
+	void testCheckPointAvailability(String totalPoint, String redeemPoint) {
+		PointBalance pointBalance = new PointBalance(null, new BigDecimal(totalPoint), null);
+
+		assertThatThrownBy(() -> pointBalance.checkPointAvailability(new BigDecimal(redeemPoint)))
+			.isInstanceOf(InsufficientPointBalanceException.class);
+
 	}
 }
