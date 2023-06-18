@@ -18,7 +18,7 @@ X_MEMBER_ID: 10
         client.assert(response.status === 200, "Response status is not 200")
     });
 
-    client.test("Check count", function (){
+    client.test("Check data", function (){
         var jsonData = response.body
         client.assert(jsonData.code === "000")
         client.assert(jsonData.message === "정상 처리")
