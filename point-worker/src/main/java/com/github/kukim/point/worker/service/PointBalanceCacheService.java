@@ -2,7 +2,7 @@ package com.github.kukim.point.worker.service;
 
 import com.github.kukim.point.core.domain.message.PointCacheMessage;
 
-public interface PointCacheService {
+public interface PointBalanceCacheService {
 
 	/**
 	 * PointCacheMessage 업데이트

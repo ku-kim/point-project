@@ -12,12 +12,12 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class PointCacheRedisService implements PointCacheService{
+public class PointBalanceCacheRedisService implements PointBalanceCacheService {
 
 	private final PointCacheRepository pointCacheRepository;
 	private final PointRepository pointRepository;
 
-	public PointCacheRedisService(PointCacheRepository pointCacheRepository,
+	public PointBalanceCacheRedisService(PointCacheRepository pointCacheRepository,
 		PointRepository pointRepository) {
 		this.pointCacheRepository = pointCacheRepository;
 		this.pointRepository = pointRepository;
