@@ -1,0 +1,20 @@
+# 회원의 현재 총 자산(point) 조회: GET /api/v1/members/points/balance
+
+### 포인트 적립 API 요청 성공: GET /api/v1/members/points/balance
+GET {{point-api-host}}/api/v1/members/points/balance
+Content-Type: application/json
+X_MEMBER_ID: 10
+
+> {%
+    client.test("Status code is 200", function (){
+        client.assert(response.status === 200, "Response status is not 200")
+    });
+
+    client.test("Check count", function (){
+        var jsonData = response.body
+        client.assert(jsonData.code === "000")
+        client.assert(jsonData.message === "정상 처리")
+        client.assert(jsonData.data.memberId === 10)
+        client.assert(jsonData.data.point >= 0)
+    });
+%}

@@ -21,13 +21,7 @@ public class PointRestController {
 	public PointRestController(PointEarnFacade pointEarnFacade) {
 		this.pointEarnFacade = pointEarnFacade;
 	}
-//	/**
-//	 * 잔여 포인트 조회 API
-//	 */
-//	@GetMapping("/api/v1/...")
-//	public ResponseEntity<?> readAll() {
-//		return ResponseEntity.ok();
-//	}
+
 //
 //	/**
 //	 * 포인트 적립/사용 내역 조회 API

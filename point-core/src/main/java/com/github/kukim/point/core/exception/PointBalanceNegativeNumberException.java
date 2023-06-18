@@ -1,8 +1,8 @@
 package com.github.kukim.point.core.exception;
 
-public class PointCacheNegativeNumberException extends PointApplicationException {
+public class PointBalanceNegativeNumberException extends PointApplicationException {
 
-	public PointCacheNegativeNumberException() {
+	public PointBalanceNegativeNumberException() {
 		super(PointApplicationErrorCode.POINT_CAL_EXCEPTION.getCode(),
 			PointApplicationErrorCode.POINT_CAL_EXCEPTION.getMessage());
 	}
