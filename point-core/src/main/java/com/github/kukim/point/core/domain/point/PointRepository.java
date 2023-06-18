@@ -1,6 +1,8 @@
 package com.github.kukim.point.core.domain.point;
 
 import java.math.BigDecimal;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -8,10 +10,18 @@ public interface PointRepository extends JpaRepository<Point, Long> {
 
 	boolean existsByMessageId(String messageId);
 
-	@Query(
-		"SELECT SUM(p.savePoint) " +
-			"FROM Point p " +
-			"WHERE p.memberId = :memberId AND p.eventType <> 'CANCEL'"
-	)
+	@Query("""
+        SELECT SUM(p.savePoint)
+        FROM Point p
+        WHERE p.memberId = :memberId AND p.eventType <> 'CANCEL'
+        """)
 	BigDecimal sumPointByMemberId(Long memberId);
+
+	@Query("""
+		SELECT p
+		FROM Point p
+		WHERE p.memberId = :memberId AND p.eventType <> 'CANCEL'
+		ORDER BY p.createdDate DESC
+		""")
+	Page<Point> findAllByMemberIdEventTypeNotCancel(Long memberId, Pageable pageable);
 }

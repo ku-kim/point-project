@@ -25,7 +25,7 @@ class PointRepositoryTest {
 	@Test
 	@Transactional
 	void testSave() {
-		Point point = new Point(KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.SAVE_EVENT, BigDecimal.valueOf(100L), "로그인 이벤트 적립",
+		Point point = new Point("tradeNo-1234", KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.SAVE_EVENT, BigDecimal.valueOf(100L), "로그인 이벤트 적립",
 			LocalDateTime.now(), 10L);
 
 		pointRepository.save(point);

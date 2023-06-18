@@ -1,0 +1,9 @@
+spring:
+  config:
+    activate:
+      on-profile: web-local
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true
+        default-page-size: 4

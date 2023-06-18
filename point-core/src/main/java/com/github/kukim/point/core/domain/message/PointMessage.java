@@ -49,7 +49,7 @@ public class PointMessage {
 	}
 
 	public Point toPoint() {
-		return new Point(messageId, eventType, eventDetailType, point, description,
+		return new Point(tradeNo, messageId, eventType, eventDetailType, point, description,
 			LocalDateTime.now().plusYears(1), memberId);
 	}
 

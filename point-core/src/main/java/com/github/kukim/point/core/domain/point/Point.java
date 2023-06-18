@@ -32,6 +32,8 @@ public class Point extends BaseTimeEntity {
 	@Column(nullable = false)
 	private String searchId;
 	@Column(nullable = false)
+	private String tradeId;
+	@Column(nullable = false)
 	private String messageId;
 
 	@Column(nullable = false)
@@ -51,10 +53,11 @@ public class Point extends BaseTimeEntity {
 	@Column(nullable = false)
 	private Long memberId;
 
-	public Point(String messageId, EventType eventType, EventDetailType eventDetailType,
+	public Point(String tradeId, String messageId, EventType eventType, EventDetailType eventDetailType,
 		BigDecimal savePoint,
 		String description, LocalDateTime expirationDate, Long memberId) {
 		this.searchId = KeyGenerator.generateUUID();
+		this.tradeId = tradeId;
 		this.messageId = messageId;
 		this.eventType = eventType;
 		this.eventDetailType = eventDetailType;

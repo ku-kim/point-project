@@ -4,6 +4,7 @@ public enum PointApplicationErrorCode {
 	SUCCESS("000", "정상 처리"),
 	FAILURE("444", "시스템 오류 발생"),
 
+	SORT_UNSUPPORTED_OPERATION_Exception("S101", "정렬을 허용하지 않습니다."),
 	POINT_CAL_EXCEPTION("S100", "포인트 계산 음수 오류 발생"),
 	QUEUE_EXCEPTION("Q100", "큐 메세지 전송 중 오류 발생"),
 	;

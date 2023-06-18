@@ -38,23 +38,23 @@ public class LocalCommandRunner implements CommandLineRunner {
 
 	private void initPointAndHistory() {
 		List<Point> points = new ArrayList<>();
-		points.add(new Point(KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.SAVE_EVENT, BigDecimal.valueOf(100L), "로그인 적립", LocalDateTime.now().plusDays(1), 1L));
-		points.add(new Point(KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.SAVE_EVENT, BigDecimal.valueOf(100L), "로그인 적립", LocalDateTime.now().plusYears(1), 1L));
-		points.add(new Point(KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.SAVE_EVENT, BigDecimal.valueOf(100L), "로그인 적립", LocalDateTime.now().plusYears(1), 2L));
-		points.add(new Point(KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.SAVE_EVENT, BigDecimal.valueOf(100L), "로그인 적립", LocalDateTime.now().plusYears(1), 2L));
-		points.add(new Point(KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.SAVE_EVENT, BigDecimal.valueOf(100L), "로그인 적립", LocalDateTime.now().plusYears(1), 3L));
-		points.add(new Point(KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.SAVE_EVENT, BigDecimal.valueOf(100L), "로그인 적립", LocalDateTime.now().plusYears(1), 3L));
+		points.add(new Point("tradeid-1231", KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.SAVE_EVENT, BigDecimal.valueOf(100L), "로그인 적립", LocalDateTime.now().plusDays(1), 1L));
+		points.add(new Point("tradeid-1232", KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.SAVE_EVENT, BigDecimal.valueOf(100L), "로그인 적립", LocalDateTime.now().plusYears(1), 1L));
+		points.add(new Point("tradeid-1233", KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.SAVE_EVENT, BigDecimal.valueOf(100L), "로그인 적립", LocalDateTime.now().plusYears(1), 2L));
+		points.add(new Point("tradeid-1236", KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.SAVE_EVENT, BigDecimal.valueOf(100L), "로그인 적립", LocalDateTime.now().plusYears(1), 2L));
+		points.add(new Point("tradeid-1237", KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.SAVE_EVENT, BigDecimal.valueOf(100L), "로그인 적립", LocalDateTime.now().plusYears(1), 3L));
+		points.add(new Point("tradeid-1238", KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.SAVE_EVENT, BigDecimal.valueOf(100L), "로그인 적립", LocalDateTime.now().plusYears(1), 3L));
 
-		points.add(new Point(KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.SAVE_BUY, BigDecimal.valueOf(1500L), "상품 A 구입 적립", LocalDateTime.now().plusYears(1), 1L));
-		points.add(new Point(KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.SAVE_BUY, BigDecimal.valueOf(2000L), "상품 B 구입 적립", LocalDateTime.now().plusYears(1), 1L));
-		points.add(new Point(KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.SAVE_BUY, BigDecimal.valueOf(700L), "상품 C 구입 적립", LocalDateTime.now().plusYears(1), 2L));
-		points.add(new Point(KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.SAVE_BUY, BigDecimal.valueOf(800L), "상품 D 구입 적립", LocalDateTime.now().plusYears(1), 2L));
-		points.add(new Point(KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.SAVE_BUY, BigDecimal.valueOf(1000L), "상품 E 구입 적립", LocalDateTime.now().plusYears(1), 3L));
-		points.add(new Point(KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.SAVE_BUY, BigDecimal.valueOf(1000L), "상품 F 구입 적립", LocalDateTime.now().plusYears(1), 3L));
+		points.add(new Point("tradeid-2231", KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.SAVE_BUY, BigDecimal.valueOf(1500L), "상품 A 구입 적립", LocalDateTime.now().plusYears(1), 1L));
+		points.add(new Point("tradeid-2232", KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.SAVE_BUY, BigDecimal.valueOf(2000L), "상품 B 구입 적립", LocalDateTime.now().plusYears(1), 1L));
+		points.add(new Point("tradeid-2233", KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.SAVE_BUY, BigDecimal.valueOf(700L), "상품 C 구입 적립", LocalDateTime.now().plusYears(1), 2L));
+		points.add(new Point("tradeid-2236", KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.SAVE_BUY, BigDecimal.valueOf(800L), "상품 D 구입 적립", LocalDateTime.now().plusYears(1), 2L));
+		points.add(new Point("tradeid-2237", KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.SAVE_BUY, BigDecimal.valueOf(1000L), "상품 E 구입 적립", LocalDateTime.now().plusYears(1), 3L));
+		points.add(new Point("tradeid-2238", KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.SAVE_BUY, BigDecimal.valueOf(1000L), "상품 F 구입 적립", LocalDateTime.now().plusYears(1), 3L));
 
-		points.add(new Point(KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.USE_BUY, BigDecimal.valueOf(-1000L), "상품 AA 구입 후 적립", LocalDateTime.now().plusYears(1), 1L));
-		points.add(new Point(KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.USE_BUY, BigDecimal.valueOf(-500L), "상품 BB 구입 후 적립", LocalDateTime.now().plusYears(1), 2L));
-		points.add(new Point(KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.USE_BUY, BigDecimal.valueOf(-200L), "상품 CC 구입 후 적립", LocalDateTime.now().plusYears(1), 3L));
+		points.add(new Point("tradeid-3231", KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.USE_BUY, BigDecimal.valueOf(-1000L), "상품 AA 구입 후 적립", LocalDateTime.now().plusYears(1), 1L));
+		points.add(new Point("tradeid-3232", KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.USE_BUY, BigDecimal.valueOf(-500L), "상품 BB 구입 후 적립", LocalDateTime.now().plusYears(1), 2L));
+		points.add(new Point("tradeid-3233", KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.USE_BUY, BigDecimal.valueOf(-200L), "상품 CC 구입 후 적립", LocalDateTime.now().plusYears(1), 3L));
 
 		List<PointHistory> pointHistories = new ArrayList<>();
 		pointHistories.add(new PointHistory(KeyGenerator.generateUUID(), EventType.SAVE, EventDetailType.SAVE_EVENT,

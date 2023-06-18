@@ -1,6 +1,9 @@
 package com.github.kukim.point.api.domain.member.service;
 
 import com.github.kukim.point.api.domain.member.controller.dto.MemberPointBalanceDto;
+import com.github.kukim.point.api.domain.member.controller.dto.MemberPointHistoryDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface MemberFinder {
 
@@ -10,4 +13,6 @@ public interface MemberFinder {
 	 * @return 멤버 총자산 dto
 	 */
 	MemberPointBalanceDto readBalance(Long memberId);
+
+	Page<MemberPointHistoryDto> readAllPointHistory(Long memberId, Pageable pageable);
 }
