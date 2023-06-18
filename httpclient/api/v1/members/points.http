@@ -1,0 +1,54 @@
+# 멤버의 포인트 적립/사용내역 조회 : GET /api/v1/members/points
+
+### 포인트 적립 API 요청 성공: GET /api/v1/members/points
+GET {{point-api-host}}/api/v1/members/points
+Content-Type: application/json
+X_MEMBER_ID: 1
+
+> {%
+    client.test("Status code is 200", function (){
+        client.assert(response.status === 200, "Response status is not 200")
+    });
+
+    client.test("Check count", function (){
+        var jsonData = response.body
+        client.assert(jsonData.code === "000", "code")
+        client.assert(jsonData.message === "정상 처리", "message")
+        client.assert(jsonData.data.content.length > 1, "data.content.length")
+    });
+%}
+
+
+### 포인트 적립 API 요청 성공: GET /api/v1/members/points?page=2&size=1
+GET {{point-api-host}}/api/v1/members/points?page=2&size=1
+Content-Type: application/json
+X_MEMBER_ID: 1
+
+> {%
+    client.test("Status code is 200", function (){
+        client.assert(response.status === 200, "Response status is not 200")
+    });
+
+    client.test("Check data", function (){
+        var jsonData = response.body
+        client.assert(jsonData.code === "000", "code")
+        client.assert(jsonData.message === "정상 처리", "message")
+        client.assert(jsonData.data.content.length === 1, "data.content.length")
+    });
+%}
+
+### 포인트 적립 API 요청 성공(sort 방어로직): GET /api/v1/members/points?page=2&size=1&sort=searchId
+GET {{point-api-host}}/api/v1/members/points?page=2&size=1&sort=searchId
+Content-Type: application/json
+X_MEMBER_ID: 1
+
+> {%
+    client.test("Status code is 400", function (){
+        client.assert(response.status === 400, "Response status is not 400")
+    });
+
+    client.test("Check data", function (){
+        var jsonData = response.body
+        client.assert(jsonData.code === "S101", "code")
+    });
+%}
