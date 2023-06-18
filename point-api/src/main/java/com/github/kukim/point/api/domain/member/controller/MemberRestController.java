@@ -4,8 +4,8 @@ import static com.github.kukim.point.core.common.Constant.HEADER_MEMBER_ID;
 
 import com.github.kukim.point.api.common.CustomApiResponse;
 import com.github.kukim.point.api.common.CustomApiResponseGenerator;
+import com.github.kukim.point.api.domain.member.controller.dto.MemberPointBalanceDto;
 import com.github.kukim.point.api.domain.member.service.MemberFinder;
-import com.github.kukim.point.core.domain.point.dto.PointBalanceDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,7 +26,7 @@ public class MemberRestController {
 	 */
 	@GetMapping("/api/v1/members/points/balance")
 	public CustomApiResponse<?> readBalance(@RequestHeader(HEADER_MEMBER_ID) Long memberId) {
-		PointBalanceDto body = memberFinder.readBalance(memberId);
+		MemberPointBalanceDto body = memberFinder.readBalance(memberId);
 
 		return CustomApiResponseGenerator.success(body);
 	}

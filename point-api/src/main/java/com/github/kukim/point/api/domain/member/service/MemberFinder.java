@@ -1,6 +1,6 @@
 package com.github.kukim.point.api.domain.member.service;
 
-import com.github.kukim.point.core.domain.point.dto.PointBalanceDto;
+import com.github.kukim.point.api.domain.member.controller.dto.MemberPointBalanceDto;
 
 public interface MemberFinder {
 
@@ -9,5 +9,5 @@ public interface MemberFinder {
 	 * @param memberId 조회하고자 하는 멤버 id
 	 * @return 멤버 총자산 dto
 	 */
-	PointBalanceDto readBalance(Long memberId);
+	MemberPointBalanceDto readBalance(Long memberId);
 }

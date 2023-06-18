@@ -1,4 +1,4 @@
-package com.github.kukim.point.core.domain.point.dto;
+package com.github.kukim.point.api.domain.member.controller.dto;
 
 import com.github.kukim.point.core.domain.point.PointBalance;
 import java.math.BigDecimal;
@@ -9,17 +9,17 @@ import lombok.ToString;
 @Getter
 @NoArgsConstructor
 @ToString
-public class PointBalanceDto {
+public class MemberPointBalanceDto {
 
 	private Long memberId;
 	private BigDecimal point;
 
-	private PointBalanceDto(Long memberId, BigDecimal point) {
+	private MemberPointBalanceDto(Long memberId, BigDecimal point) {
 		this.memberId = memberId;
 		this.point = point;
 	}
 
-	public static PointBalanceDto of(PointBalance pointBalance) {
-		return new PointBalanceDto(pointBalance.getId(), pointBalance.getPoint());
+	public static MemberPointBalanceDto of(PointBalance pointBalance) {
+		return new MemberPointBalanceDto(pointBalance.getId(), pointBalance.getPoint());
 	}
 }
