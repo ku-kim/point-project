@@ -59,7 +59,7 @@ public class PointRedeemWorkerFacade {
 			BigDecimal underFlowPoint = redeemPoint.deductPoint(pointRemainHistory.getRemainPoint());
 
 			if (underFlowPoint.signum() == -1) {
-				PointHistory redeemPointHistory = PointHistory.createRedeemBy(
+				PointHistory redeemPointHistory = PointHistory.createRedeemHistoryBy(
 					message.getMessageId(),
 					message.getEventType(), message.getEventDetailType(),
 					pointRemainHistory.getRemainPoint().multiply(new BigDecimal(-1)),
@@ -69,7 +69,7 @@ public class PointRedeemWorkerFacade {
 				savePointHistory.add(redeemPointHistory);
 				log.info("[point-worker][point-redeem] pointhistory 사용 업데이트 중: {}", redeemPointHistory);
 			} else {
-				PointHistory redeemPointHistory = PointHistory.createRedeemBy(message.getMessageId(),
+				PointHistory redeemPointHistory = PointHistory.createRedeemHistoryBy(message.getMessageId(),
 					message.getEventType(), message.getEventDetailType(),
 					underFlowPoint.multiply(new BigDecimal(-1)),
 					pointRemainHistory.getEarnPointId(), redeemPoint.getSearchId(),

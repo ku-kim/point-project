@@ -59,7 +59,7 @@ public class Point extends BaseTimeEntity {
 	public Point(String tradeId, String messageId, EventType eventType, EventDetailType eventDetailType,
 		BigDecimal savePoint,
 		String description, LocalDateTime expirationDate, Long memberId) {
-		this.searchId = KeyGenerator.generateUUID();
+		this.searchId = "p-" + KeyGenerator.generateUUID();
 		this.tradeId = tradeId;
 		this.messageId = messageId;
 		this.eventType = eventType;

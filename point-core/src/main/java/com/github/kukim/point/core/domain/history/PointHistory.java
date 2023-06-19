@@ -68,7 +68,7 @@ public class PointHistory extends BaseTimeEntity {
 		this.memberId = memberId;
 	}
 
-	public static PointHistory createRedeemBy(String messageId, EventType eventType,
+	public static PointHistory createRedeemHistoryBy(String messageId, EventType eventType,
 		EventDetailType eventDetailType, BigDecimal redeemPoint, String earnPointId,
 		String searchId, LocalDateTime expirationDate,
 		Long memberId) {
