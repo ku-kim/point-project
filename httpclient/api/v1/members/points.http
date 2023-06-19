@@ -1,6 +1,6 @@
 # 멤버의 포인트 적립/사용내역 조회 : GET /api/v1/members/points
 
-### 포인트 적립 API 요청 성공: GET /api/v1/members/points
+### 포인트 적립/사용내역 API 요청 성공: GET /api/v1/members/points
 GET {{point-api-host}}/api/v1/members/points
 Content-Type: application/json
 X_MEMBER_ID: 1
@@ -19,10 +19,10 @@ X_MEMBER_ID: 1
 %}
 
 
-### 포인트 적립 API 요청 성공: GET /api/v1/members/points?page=2&size=1
-GET {{point-api-host}}/api/v1/members/points?page=2&size=1
+### 포인트 적립/사용내역 API 요청 성공: GET /api/v1/members/points?page=2&size=1
+GET {{point-api-host}}/api/v1/members/points?page=2&size=2
 Content-Type: application/json
-X_MEMBER_ID: 1
+X_MEMBER_ID: 10
 
 > {%
     client.test("Status code is 200", function (){
@@ -37,7 +37,7 @@ X_MEMBER_ID: 1
     });
 %}
 
-### 포인트 적립 API 요청 성공(sort 방어로직): GET /api/v1/members/points?page=2&size=1&sort=searchId
+### 포인트 적립/사용내역 API 요청 성공(sort 방어로직): GET /api/v1/members/points?page=2&size=1&sort=searchId
 GET {{point-api-host}}/api/v1/members/points?page=2&size=1&sort=searchId
 Content-Type: application/json
 X_MEMBER_ID: 1
