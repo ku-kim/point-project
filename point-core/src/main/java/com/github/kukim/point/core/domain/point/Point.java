@@ -5,6 +5,7 @@ import com.github.kukim.point.core.domain.history.PointHistory;
 import com.github.kukim.point.core.domain.type.EventDetailType;
 import com.github.kukim.point.core.domain.type.EventType;
 import com.github.kukim.point.core.domain.util.KeyGenerator;
+import com.github.kukim.point.core.exception.UnsupportedRedeemPointEventTypeException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -78,6 +79,9 @@ public class Point extends BaseTimeEntity {
 	}
 
 	public BigDecimal deductPoint(BigDecimal point) {
+		if (!eventType.equals(EventType.USE)) {
+			throw new UnsupportedRedeemPointEventTypeException();
+		}
 		if (Objects.isNull(point)) {
 			throw new NullPointerException("입력한 포인트가 비어있습니다.");
 		}
