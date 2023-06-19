@@ -25,7 +25,7 @@ public class MemberRestController {
 
 	/**
 	 * 잔여 포인트 조회 API
-	 * Member 도메인은 별도로 구현하지 않음, memberId는 유효하다는 가정
+	 * 멤버 id가 현재 가지고있는 전체 포인트 (balance)를 조회합니다.
 	 */
 	@GetMapping("/api/v1/members/points/balance")
 	public CustomApiResponse<?> readBalance(@RequestHeader(HEADER_MEMBER_ID) Long memberId) {
@@ -37,7 +37,7 @@ public class MemberRestController {
 
 	/**
 	 * 포인트 적립/사용 내역 조회 API
-	 * 단, 적립 취소 내역을 조회되지 않습니다.
+	 * 단, 포인트 사용 취소 시 해당 히스토리는 조회되지 않습니다.
 	 */
 	@GetMapping("/api/v1/members/points")
 	public CustomApiResponse<?> readAllPointHistory(@RequestHeader(HEADER_MEMBER_ID) Long memberId, Pageable pageable) {
