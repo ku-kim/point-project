@@ -1,5 +1,9 @@
 description("point-api module")
 
+bootJar {
+    duplicatesStrategy = 'exclude'
+}
+
 dependencies {
     implementation(project(":point-core"))
     implementation(project(":clients:aws-sqs"))
