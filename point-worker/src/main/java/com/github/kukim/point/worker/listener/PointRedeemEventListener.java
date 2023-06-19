@@ -1,7 +1,7 @@
 package com.github.kukim.point.worker.listener;
 
 import com.github.kukim.point.core.domain.message.PointMessage;
-import com.github.kukim.point.worker.service.PointRedeemService;
+import com.github.kukim.point.worker.service.PointRedeemWorkerFacade;
 import io.awspring.cloud.messaging.listener.Acknowledgment;
 import io.awspring.cloud.messaging.listener.SqsMessageDeletionPolicy;
 import io.awspring.cloud.messaging.listener.annotation.SqsListener;
@@ -13,10 +13,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class PointRedeemEventListener {
 
-	private final PointRedeemService pointRedeemService;
+	private final PointRedeemWorkerFacade pointRedeemWorkerFacade;
 
-	public PointRedeemEventListener(PointRedeemService pointRedeemService) {
-		this.pointRedeemService = pointRedeemService;
+	public PointRedeemEventListener(PointRedeemWorkerFacade pointRedeemWorkerFacade) {
+		this.pointRedeemWorkerFacade = pointRedeemWorkerFacade;
 	}
 
 
@@ -24,7 +24,7 @@ public class PointRedeemEventListener {
 	public void pointCache(@Payload PointMessage pointMessage, Acknowledgment ack) {
 		log.info("[point-worker][point-redeem] 포인트 사용 업데이트 수신 성공: pointMessage= {}", pointMessage);
 		try {
-			pointRedeemService.redeem(pointMessage);
+			pointRedeemWorkerFacade.redeem(pointMessage);
 			ack.acknowledge();
 			log.info("[point-worker][point-redeem] 포인트 사용 history 업데이트 성공: {}", pointMessage);
 		} catch (Exception e) {
