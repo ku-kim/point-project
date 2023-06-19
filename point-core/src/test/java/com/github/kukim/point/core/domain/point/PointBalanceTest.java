@@ -35,15 +35,6 @@ class PointBalanceTest {
 		assertThat(pointBalance.getPoint()).isEqualTo(expected);
 	}
 
-	@DisplayName("만약 PointBalance.plus 메서드 실행 시 음수라면 예외를 발생시킵니다. ")
-	@Test
-	void testPlusException() {
-		PointBalance pointBalance = new PointBalance(null, new BigDecimal(10), null);
-
-		assertThatThrownBy(() -> pointBalance.plus(new BigDecimal(-1000)))
-			.isInstanceOf(PointBalanceNegativeNumberException.class);
-	}
-
 	private static Stream<Arguments> providePlusCases() {
 		return Stream.of(
 			Arguments.of(new PointBalance(null, new BigDecimal(10), null), new BigDecimal(20),
@@ -53,6 +44,15 @@ class PointBalanceTest {
 			Arguments.of(new PointBalance(null, new BigDecimal(10.5), null), new BigDecimal(200),
 				new BigDecimal(210.5))
 		);
+	}
+
+	@DisplayName("만약 PointBalance.plus 메서드 실행 시 음수라면 예외를 발생시킵니다. ")
+	@Test
+	void testPlusException() {
+		PointBalance pointBalance = new PointBalance(null, new BigDecimal(10), null);
+
+		assertThatThrownBy(() -> pointBalance.plus(new BigDecimal(-1000)))
+			.isInstanceOf(PointBalanceNegativeNumberException.class);
 	}
 
 	@DisplayName("만약 현재 자산보다 더 많은 금액을 사용하려한다면 exception을 발생시킨다. ")
