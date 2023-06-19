@@ -1,0 +1,215 @@
+# 포인트 적립 / 사용 / 취소 시나리오
+# 1. memberId 10 유저가 포인트 100/200/800 적립
+# 2. 포인트 250 사용
+# 3. 포인트 250 사용 취소
+# 4. 포인트 적립내역 조회
+
+### 1-1: 포인트 적립: +100
+POST {{point-api-host}}/api/v1/points/earn
+Content-Type: application/json
+X_MEMBER_ID: 119
+
+{
+  "tradeId": "{{$uuid}}",
+  "eventType": "SAVE",
+  "eventDetailType": "SAVE_EVENT",
+  "earnPoint": 100,
+  "description": "로그인 적립"
+}
+
+> {%
+    client.test("Status code is 200", function (){
+        client.assert(response.status === 200, "Response status is not 200")
+    });
+
+    client.test("Check data", function (){
+        var jsonData = response.body
+        client.assert(jsonData.code === "000")
+        client.assert(jsonData.message === "정상 처리")
+        client.assert(jsonData.data.eventType === "SAVE")
+        client.assert(jsonData.data.eventDetailType === "SAVE_EVENT")
+        client.assert(jsonData.data.memberId === "119")
+    });
+%}
+
+### 1-2: 포인트 적립: +200
+POST {{point-api-host}}/api/v1/points/earn
+Content-Type: application/json
+X_MEMBER_ID: 119
+
+{
+  "tradeId": "{{$uuid}}",
+  "eventType": "SAVE",
+  "eventDetailType": "SAVE_EVENT",
+  "earnPoint": 200,
+  "description": "결제 보너스"
+}
+
+> {%
+    client.test("Status code is 200", function (){
+        client.assert(response.status === 200, "Response status is not 200")
+    });
+
+    client.test("Check data", function (){
+        var jsonData = response.body
+        client.assert(jsonData.code === "000")
+        client.assert(jsonData.message === "정상 처리")
+        client.assert(jsonData.data.eventType === "SAVE")
+        client.assert(jsonData.data.eventDetailType === "SAVE_EVENT")
+        client.assert(jsonData.data.memberId === "119")
+
+    });
+%}
+
+### 1-3: 포인트 적립: +800
+POST {{point-api-host}}/api/v1/points/earn
+Content-Type: application/json
+X_MEMBER_ID: 119
+
+{
+  "tradeId": "{{$uuid}}",
+  "eventType": "SAVE",
+  "eventDetailType": "SAVE_EVENT",
+  "earnPoint": 800,
+  "description": "결제 보너스"
+}
+
+> {%
+    client.test("Status code is 200", function (){
+        client.assert(response.status === 200, "Response status is not 200")
+    });
+
+    client.test("Check data", function (){
+        var jsonData = response.body
+        client.assert(jsonData.code === "000")
+        client.assert(jsonData.message === "정상 처리")
+        client.assert(jsonData.data.eventType === "SAVE")
+        client.assert(jsonData.data.eventDetailType === "SAVE_EVENT")
+        client.assert(jsonData.data.memberId === "119")
+
+    });
+%}
+
+### 2: 포인트 사용: -700
+POST {{point-api-host}}/api/v1/points/redeem
+Content-Type: application/json
+X_MEMBER_ID: 119
+
+{
+  "tradeId": "custom-trade-id-2",
+  "eventType": "USE",
+  "eventDetailType": "USE_BUY",
+  "redeemPoint": -700,
+  "description": "제품 A 구매"
+}
+
+> {%
+    client.test("Status code is 200", function (){
+        client.assert(response.status === 200, "Response status is not 200")
+    });
+
+    client.test("Check data", function (){
+        var jsonData = response.body
+        client.assert(jsonData.code === "000")
+        client.assert(jsonData.message === "정상 처리")
+        client.assert(jsonData.data.eventType === "USE")
+        client.assert(jsonData.data.eventDetailType === "USE_BUY")
+        client.assert(jsonData.data.memberId === "119")
+    });
+%}
+
+### 3-1: 현재 남은 전체 포인트 (balance) 조회
+GET {{point-api-host}}/api/v1/members/points/balance
+Content-Type: application/json
+X_MEMBER_ID: 119
+
+> {%
+    client.test("Status code is 200", function (){
+        client.assert(response.status === 200, "Response status is not 200")
+    });
+
+    client.test("Check data", function (){
+        var jsonData = response.body
+        client.assert(jsonData.code === "000")
+        client.assert(jsonData.message === "정상 처리")
+        client.assert(jsonData.data.memberId === "119")
+    });
+%}
+
+### 3-2: 포인트 적립/사용 내역 조회(총 5개)
+GET {{point-api-host}}/api/v1/members/points?size=10
+Content-Type: application/json
+X_MEMBER_ID: 119
+
+> {%
+    client.test("Status code is 200", function (){
+        client.assert(response.status === 200, "Response status is not 200")
+    });
+
+    client.test("Check data", function (){
+        var jsonData = response.body
+        client.assert(jsonData.code === "000")
+        client.assert(jsonData.message === "정상 처리")
+        client.assert(jsonData.data.content.length == 5)
+    });
+%}
+
+### 4: 포인트 사용 취소: +700
+POST {{point-api-host}}/api/v1/points/redeem/cancel
+Content-Type: application/json
+X_MEMBER_ID: 119
+
+{
+  "tradeId": "custom-trade-id-2"
+}
+
+> {%
+    client.test("Status code is 200", function (){
+        client.assert(response.status === 200, "Response status is not 200")
+    });
+
+    client.test("Check data", function (){
+        var jsonData = response.body
+        client.assert(jsonData.code === "000")
+        client.assert(jsonData.message === "정상 처리")
+        client.assert(jsonData.data.eventType === "CANCEL")
+        client.assert(jsonData.data.eventDetailType === "USE_CANCEL")
+        client.assert(jsonData.data.memberId === "119")
+    });
+%}
+
+### 5-1: 현재 남은 전체 포인트 (balance) 조회
+GET {{point-api-host}}/api/v1/members/points/balance
+Content-Type: application/json
+X_MEMBER_ID: 119
+
+> {%
+    client.test("Status code is 200", function (){
+        client.assert(response.status === 200, "Response status is not 200")
+    });
+
+    client.test("Check data", function (){
+        var jsonData = response.body
+        client.assert(jsonData.code === "000")
+        client.assert(jsonData.message === "정상 처리")
+        client.assert(jsonData.data.memberId === "119")
+    });
+%}
+
+### 5-2: 포인트 적립/사용 내역 조회(총 3개) / 사용취소, 사용 내역 조회 안됨
+GET {{point-api-host}}/api/v1/members/points?size=10
+Content-Type: application/json
+X_MEMBER_ID: 119
+
+> {%
+    client.test("Status code is 200", function (){
+        client.assert(response.status === 200, "Response status is not 200")
+    });
+
+    client.test("Check data", function (){
+        var jsonData = response.body
+        client.assert(jsonData.code === "000")
+        client.assert(jsonData.message === "정상 처리")
+        client.assert(jsonData.data.content.length == 3)
+    });
+%}

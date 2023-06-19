@@ -6,7 +6,7 @@ Content-Type: application/json
 X_MEMBER_ID: 1
 
 {
-  "tradeId": "{{$uuid}}",
+  "tradeId": "{{custom-trade-id}}",
   "eventType": "USE",
   "eventDetailType": "USE_BUY",
   "redeemPoint": -100,

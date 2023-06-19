@@ -1,0 +1,24 @@
+# 포인트 사용 취소 API: POST /api/v1/points/redeem/cancel
+
+### 포인트 사용 취소 성공: POST /api/v1/points/redeem/cancel
+POST {{point-api-host}}/api/v1/points/redeem
+Content-Type: application/json
+X_MEMBER_ID: 1
+
+{
+  "tradeId": {{custom-trade-id}}
+}
+
+> {%
+    client.test("Status code is 200", function (){
+        client.assert(response.status === 200, "Response status is not 200")
+    });
+
+    client.test("Check data", function (){
+        var jsonData = response.body
+        client.assert(jsonData.code === "000")
+        client.assert(jsonData.message === "정상 처리")
+        client.assert(jsonData.data.eventType === "USE")
+        client.assert(jsonData.data.eventDetailType === "USE_BUY")
+    });
+%}
