@@ -17,6 +17,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +25,12 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @Entity
-@Table
+@Table(
+	indexes = {
+		@Index(name = "IDX_MEMBER_ID", columnList = "memberId"),
+		@Index(name = "IDX_TRADE_ID", columnList = "tradeID")
+	}
+)
 public class Point extends BaseTimeEntity {
 
 	@Id

@@ -13,6 +13,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +24,15 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @Entity
-@Table
+@Table(
+	indexes = {
+		@Index(name = "IDX_POINT_HISTORY_MEMBER_ID", columnList = "memberId"),
+		@Index(name = "IDX_POINT_HISTORY_MEMBER_ID", columnList = "memberId"),
+		@Index(name = "IDX_POINT_HISTORY_EARN_POINT_ID", columnList = "earnPointId"),
+		@Index(name = "IDX_POINT_HISTORY_ORIGIN_POINT_ID", columnList = "originPointId"),
+		@Index(name = "IDX_POINT_HISTORY_SAVE_POINT", columnList = "savePoint")
+	}
+)
 public class PointHistory extends BaseTimeEntity {
 
 	@Id
