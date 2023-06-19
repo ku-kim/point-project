@@ -4,12 +4,15 @@ import static com.github.kukim.point.core.common.Constant.HEADER_MEMBER_ID;
 
 import com.github.kukim.point.api.common.CustomApiResponse;
 import com.github.kukim.point.api.common.CustomApiResponseGenerator;
+import com.github.kukim.point.api.domain.point.controller.dto.PointCancelCommand;
 import com.github.kukim.point.api.domain.point.controller.dto.PointEarnCommand;
 import com.github.kukim.point.api.domain.point.controller.dto.PointRedeemCommand;
 import com.github.kukim.point.api.domain.point.service.PointEarnService;
 import com.github.kukim.point.api.domain.point.service.PointRedeemFacade;
+import com.github.kukim.point.core.domain.message.dto.PointCancelMessageDto;
 import com.github.kukim.point.core.domain.message.dto.PointMessageDto;
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -56,13 +59,20 @@ public class PointRestController {
 		return CustomApiResponseGenerator.success(body);
 	}
 
-//
-//	/**
-//	 * 포인트 사용 취소 API
-//	 */
-//	@PostMapping("/api/v1/...")
-//	public ResponseEntity<?> cancelPoint() {
-//		return ResponseEntity.ok();
-//	}
+
+	/**
+	 * 포인트 사용 취소 API
+	 * 1. 사용된 Point 사용 Receipt 유효성 검증 (실제 DB 확인)
+	 * 2. 포인트 사용 취소 DB 업데이트 (실제 point 사용 DB 업데이트)
+	 * 3. 포인트 사용 취소 워커에 전달 (PointHistory 업데이트를위해 worker에 전달)
+	 * @param memberId memberId가 유효하다는 가정
+	 * @param command 포인트 사용 취소 command
+	 * @return 포인트 사용 취소 message
+	 */
+	@PostMapping("/api/v1/points/redeem/cancel")
+	public CustomApiResponse<?> cancelPoint(@RequestHeader(HEADER_MEMBER_ID) Long memberId, @RequestBody @NotBlank PointCancelCommand command) {
+		PointCancelMessageDto body = pointRedeemFacade.cancel(memberId, command);
+		return CustomApiResponseGenerator.success(body);
+	}
 
 }

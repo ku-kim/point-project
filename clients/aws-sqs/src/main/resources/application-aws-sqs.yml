@@ -28,6 +28,8 @@ sqs:
       name: 'point-cache'
     -
       name: 'point-redeem'
+    -
+      name: 'point-cancel'
 aws:
   sqs:
     queue:
@@ -35,6 +37,8 @@ aws:
       point-earn-dlq: 'point-earn-dlq'
       point-cache: 'point-cache'
       point-redeem: 'point-redeem'
+      point-cancel: 'point-cancel'
+
 ---
 spring:
   config:
@@ -54,3 +58,4 @@ aws:
       point-earn-dlq: 'point-earn-dlq'
       point-cache: 'point-cache'
       point-redeem: 'point-redeem'
+      point-cancel: 'point-cancel'

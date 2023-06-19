@@ -28,4 +28,13 @@ public interface PointRepository extends JpaRepository<Point, Long> {
 
 	Optional<Point> findByTradeId(String tradeNo);
 
+
+	@Query("""
+		SELECT p
+		FROM Point p
+		WHERE p.memberId = :memberId 
+			AND p.tradeId = :tradeId
+			AND p.eventType = 'USE'
+	""")
+	Optional<Point> findRedeemPointByMemberIdAndTradeId(Long memberId, String tradeId);
 }

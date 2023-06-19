@@ -7,6 +7,7 @@ public enum EventType {
 
 	SAVE("적립"),
 	USE("사용"),
+	CANCEL("사용 취소"),
 	DISAPPEAR("소멸");
 
 	private final String title;

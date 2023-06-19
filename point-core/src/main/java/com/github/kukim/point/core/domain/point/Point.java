@@ -5,6 +5,7 @@ import com.github.kukim.point.core.domain.history.PointHistory;
 import com.github.kukim.point.core.domain.type.EventDetailType;
 import com.github.kukim.point.core.domain.type.EventType;
 import com.github.kukim.point.core.domain.util.KeyGenerator;
+import com.github.kukim.point.core.exception.UnsupportedCancelPointEventTypeException;
 import com.github.kukim.point.core.exception.UnsupportedRedeemPointEventTypeException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -50,6 +51,8 @@ public class Point extends BaseTimeEntity {
 	private BigDecimal savePoint;
 	@Column(nullable = false)
 	private BigDecimal remainPoint;
+	@Column(nullable = false)
+	private boolean isCancel;
 
 	private String description;
 	private LocalDateTime expirationDate;
@@ -57,7 +60,8 @@ public class Point extends BaseTimeEntity {
 	@Column(nullable = false)
 	private Long memberId;
 
-	public Point(String tradeId, String messageId, EventType eventType, EventDetailType eventDetailType,
+	public Point(String tradeId, String messageId, EventType eventType,
+		EventDetailType eventDetailType,
 		BigDecimal savePoint,
 		String description, LocalDateTime expirationDate, Long memberId) {
 		this.searchId = "p-" + KeyGenerator.generateUUID();
@@ -67,6 +71,7 @@ public class Point extends BaseTimeEntity {
 		this.eventDetailType = eventDetailType;
 		this.savePoint = savePoint;
 		this.remainPoint = savePoint;
+		this.isCancel = eventType.equals(EventType.CANCEL);
 		this.description = description;
 		this.expirationDate = expirationDate;
 		this.memberId = memberId;
@@ -74,7 +79,8 @@ public class Point extends BaseTimeEntity {
 
 	public PointHistory toEarnPointHistory() {
 		String pointHistorySearchId = "h-" + KeyGenerator.generateUUID();
-		return new PointHistory(messageId, eventType, eventDetailType, savePoint, pointHistorySearchId,
+		return new PointHistory(messageId, eventType, eventDetailType, savePoint,
+			pointHistorySearchId,
 			pointHistorySearchId, searchId, expirationDate, memberId);
 	}
 
@@ -91,11 +97,19 @@ public class Point extends BaseTimeEntity {
 			BigDecimal underFlowPoint = point.subtract(this.remainPoint);
 			this.remainPoint = new BigDecimal(0);
 			return underFlowPoint;
-		} else if (this.remainPoint.signum() == 0){
+		} else if (this.remainPoint.signum() == 0) {
 			return new BigDecimal(0);
 		}
 
 		return this.remainPoint;
+	}
+
+	public void cancel() {
+		if (eventType.equals(EventType.USE)) {
+			this.isCancel = true;
+		} else {
+			throw new UnsupportedCancelPointEventTypeException();
+		}
 	}
 
 	// TODO: Only 디버깅용

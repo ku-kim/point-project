@@ -1,14 +1,21 @@
 package com.github.kukim.point.api.domain.point.service;
 
 import com.github.kukim.point.api.domain.member.service.MemberFinder;
+import com.github.kukim.point.api.domain.point.controller.dto.PointCancelCommand;
 import com.github.kukim.point.api.domain.point.controller.dto.PointRedeemCommand;
+import com.github.kukim.point.api.exception.NotFoundPointByMemberIdAndTradeId;
 import com.github.kukim.point.api.infrastructure.message.QueueMessageSender;
 import com.github.kukim.point.clients.aws.config.AwsSqsQueueProperties;
+import com.github.kukim.point.core.domain.message.PointCancelMessage;
 import com.github.kukim.point.core.domain.message.PointMessage;
+import com.github.kukim.point.core.domain.message.dto.PointCancelMessageDto;
 import com.github.kukim.point.core.domain.message.dto.PointMessageDto;
 import com.github.kukim.point.core.domain.point.Point;
 import com.github.kukim.point.core.domain.point.PointBalance;
 import com.github.kukim.point.core.domain.point.PointRepository;
+import com.github.kukim.point.core.domain.type.EventDetailType;
+import com.github.kukim.point.core.domain.type.EventType;
+import java.math.BigDecimal;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +35,32 @@ public class PointRedeemFacade {
 		this.pointRepository = pointRepository;
 		this.queueMessageSender = queueMessageSender;
 		this.awsSqsQueueProperties = awsSqsQueueProperties;
+	}
+
+	@Transactional
+	public PointCancelMessageDto cancel(Long memberId, PointCancelCommand command) {
+		log.info("memberId: {}, tradeId: {}", memberId, command);
+		Point redeemPoint = pointRepository.findRedeemPointByMemberIdAndTradeId(memberId, command.getTradeId())
+			.orElseThrow(NotFoundPointByMemberIdAndTradeId::new);
+
+		PointCancelMessage message = PointCancelMessage.create(
+			redeemPoint.getSearchId(),
+			redeemPoint.getTradeId(),
+			EventType.CANCEL,
+			EventDetailType.USE_CANCEL,
+			redeemPoint.getSavePoint().multiply(new BigDecimal(-1)),
+			redeemPoint.getDescription(),
+			redeemPoint.getMemberId());
+
+		redeemPoint.cancel();
+		Point cancelPoint = message.toPoint();
+		pointRepository.save(cancelPoint);
+		pointRepository.save(redeemPoint);
+		log.info("[point-api][cancel] 포인트 사용취소 DB 업데이트 - 취소 포인트 {}", cancelPoint);
+
+		queueMessageSender.sendMessage(awsSqsQueueProperties.getPointCancel(), message);
+
+		return PointCancelMessageDto.of(message);
 	}
 
 	@Transactional
