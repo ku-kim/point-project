@@ -13,7 +13,7 @@
 # 회원 포인트 서비스
 
 간단히 회원 포인트 서비스를 구현합니다.  
-로깅/모니터링, CI/CD, 인증/권한은 고려하지 않습니다.
+로깅/모니터링, CI/CD, 인증/권한, API Docs는 고려하지 않았습니다.
 
 ## 프로젝트 구조
 ```bash
@@ -49,15 +49,9 @@
 
 ## API 기능 상세
 
-- 배경
-    - My page 에서 잔여 포인트를 확인 할 수 있으며
-    - 또한 사용내역을 확인할 수 있습니다.
-    - 주문시 일정 금액을 사용할 수 있으며
-    - 주문 완료시 주문 금액의 일부를 적립할 수 있습니다.
-
 
 <details>
-<summary> READ: 1. 잔여 포인트 조회 | `GET /api/v1/members/points/balance</summary>
+<summary> 📑 READ: 1. 잔여 포인트 조회 | `GET /api/v1/members/points/balance</summary>
 <div markdown="1">
 
 - redis를 활용하여 회원의 잔여 포인트를 조회합니다.
@@ -67,6 +61,34 @@
 <summary> ✅ API Request / Response</summary>
 <div markdown="1">
 
+Request
+
+```
+GET {{point-api-host}}/api/v1/members/points/balance
+Content-Type: application/json
+X_MEMBER_ID: 10
+```
+
+Response OK
+
+```
+HTTP/1.1 200 
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Mon, 19 Jun 2023 12:18:18 GMT
+Keep-Alive: timeout=60
+Connection: keep-alive
+
+{
+  "code": "000",
+  "message": "정상 처리",
+  "data": {
+    "memberId": 10,
+    "point": 100.00
+  }
+}
+```
+
 </div>
 </details>
 
@@ -74,7 +96,7 @@
 </details>
 
 <details>
-<summary> READ: 2. 포인트 적립/사용 내역 조회 | GET /api/v1/members/points </summary>
+<summary> 📑 READ: 2. 포인트 적립/사용 내역 조회 | GET /api/v1/members/points </summary>
 <div markdown="1">
 
 - 회원의 포인트 적립 / 사용 내역을 조회합니다.
@@ -85,6 +107,98 @@
 <summary> ✅ API Request / Response</summary>
 <div markdown="1">
 
+Request
+
+```
+# 페이징 가능
+GET {{point-api-host}}/api/v1/members/points?page=2&size=2
+Content-Type: application/json
+X_MEMBER_ID: 10
+```
+
+Response OK
+
+```
+HTTP/1.1 200 
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Mon, 19 Jun 2023 12:22:53 GMT
+Keep-Alive: timeout=60
+Connection: keep-alive
+
+{
+  "code": "000",
+  "message": "정상 처리",
+  "data": {
+    "content": [
+      {
+        "searchId": "p-20230619212245106-e4056be6",
+        "tradeId": "d851e365-a8c5-4758-b729-ec96ac4ea169",
+        "messageId": "20230619212244998-1b5defc4",
+        "eventType": "SAVE",
+        "eventDetailType": "SAVE_EVENT",
+        "point": 100.00,
+        "description": "로그인 적립",
+        "memberId": 10,
+        "expirationDate": "2024-06-19T21:22:45.10524",
+        "createdDate": "2023-06-19T21:22:45.133214"
+      },
+      {
+        "searchId": "p-20230619210420041-d47257c1",
+        "tradeId": "fe11c694-6162-4057-8f36-211f3495363a",
+        "messageId": "20230619210419842-f8821a74",
+        "eventType": "SAVE",
+        "eventDetailType": "SAVE_EVENT",
+        "point": 100.00,
+        "description": "로그인 적립",
+        "memberId": 10,
+        "expirationDate": "2024-06-19T21:04:20.040752",
+        "createdDate": "2023-06-19T21:04:20.119929"
+      }
+    ],
+    "pageable": {
+      "sort": {
+        "empty": true,
+        "unsorted": true,
+        "sorted": false
+      },
+      "offset": 2,
+      "pageSize": 2,
+      "pageNumber": 1,
+      "unpaged": false,
+      "paged": true
+    },
+    "totalPages": 2,
+    "totalElements": 4,
+    "last": true,
+    "size": 2,
+    "number": 1,
+    "sort": {
+      "empty": true,
+      "unsorted": true,
+      "sorted": false
+    },
+    "numberOfElements": 2,
+    "first": false,
+    "empty": false
+  }
+}
+```
+
+Response 400
+```
+HTTP/1.1 400 
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Mon, 19 Jun 2023 12:21:53 GMT
+Connection: close
+
+{
+  "code": "S101",
+  "message": "정렬을 허용하지 않습니다.",
+  "data": null
+}
+```
 </div>
 </details>
 
@@ -93,33 +207,12 @@
 </details>
 
 <details>
-<summary> INSERT: 3. 포인트 적립 | POST /api/v1/points/earn </summary>
+<summary> 📑 INSERT: 3. 포인트 적립 | POST /api/v1/points/earn </summary>
 <div markdown="1">
 
 1. point-api가 포인트 적립 API 요청을 받고 AWS SQS에 메세지를 전송합니다.
 2. point-worker가 해당 메세지를 수신합니다.
 3. point-worker가 `point`, `point-history` 스키마를 업데이트 합니다.
-
-
-<details>
-<summary> ✅ API Request / Response</summary>
-<div markdown="1">
-
-</div>
-</details>
-
-</div>
-</details>
-
-<details>
-<summary>INSERT: 4. 포인트 사용 | POST /api/v1/points/redeem</summary>
-<div markdown="1">
-
-1. point-api가 포인트 사용 API 요청을 받습니다.
-2. point-api가 포인트 사용 유효성 검증 후 `point` 스키마를 업데이트합니다.
-3. point-api가 AWS SQS에 메세지를 전송합니다.
-4. point-worker가 해당 메세지를 수신합니다.
-5. point-worker가 적립된 순서대로 `point-history` 스키마에 업데이트를 하여 포인트를 사용합니다.
 
 
 <details>
@@ -136,13 +229,13 @@ X_MEMBER_ID: 10
 {
   "tradeId": "{{$uuid}}",
   "eventType": "SAVE",
-  "eventDetailType": "SAVE_EVENT",
+  "eventDetailType": "SAVE_BUY",
   "earnPoint": 100,
-  "description": "로그인 적립"
+  "description": "A 제품 구입"
 }
 ```
 
-Response
+Response OK
 
 ```
 HTTP/1.1 200 
@@ -159,9 +252,78 @@ Connection: keep-alive
     "messageId": "20230619210419842-f8821a74",
     "tradeNo": "fe11c694-6162-4057-8f36-211f3495363a",
     "eventType": "SAVE",
-    "eventDetailType": "SAVE_EVENT",
+    "eventDetailType": "SAVE_BUY",
     "point": 100,
     "memberId": 10
+  }
+}
+```
+
+Response 400
+
+```
+HTTP/1.1 400 
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Mon, 19 Jun 2023 12:15:33 GMT
+Connection: close
+
+{
+  "code": "S001",
+  "message": "요청 값 확인 필요",
+  "data": null
+}
+```
+
+</div>
+</details>
+
+</div>
+</details>
+
+<details>
+<summary> 📑 INSERT: 4. 포인트 사용 | POST /api/v1/points/redeem</summary>
+<div markdown="1">
+
+1. point-api가 포인트 사용 API 요청을 받습니다.
+2. point-api가 포인트 사용 유효성 검증 후 `point` 스키마를 업데이트합니다.
+3. point-api가 AWS SQS에 메세지를 전송합니다.
+4. point-worker가 해당 메세지를 수신합니다.
+5. point-worker가 적립된 순서대로 `point-history` 스키마에 업데이트를 하여 포인트를 사용합니다.
+
+
+<details>
+<summary> ✅ API Request / Response</summary>
+<div markdown="1">
+
+Request
+
+```
+POST {{point-api-host}}/api/v1/points/redeem
+Content-Type: application/json
+X_MEMBER_ID: 119
+```
+
+Reponse OK
+
+```
+HTTP/1.1 200 
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Mon, 19 Jun 2023 12:23:45 GMT
+Keep-Alive: timeout=60
+Connection: keep-alive
+
+{
+  "code": "000",
+  "message": "정상 처리",
+  "data": {
+    "messageId": "20230619212345295-e479d1f1",
+    "tradeNo": "custom-trade-id-2",
+    "eventType": "USE",
+    "eventDetailType": "USE_BUY",
+    "point": -700,
+    "memberId": 119
   }
 }
 ```
@@ -173,7 +335,7 @@ Connection: keep-alive
 </details>
 
 <details>
-<summary>INSERT: 5. 포인트 사용 취소 | POST /api/v1/points/redeem/cancel</summary>
+<summary> 📑 INSERT: 5. 포인트 사용 취소 | POST /api/v1/points/redeem/cancel</summary>
 <div markdown="1">
 
 1. point-api가 포인트 사용 취소 API 요청을 받습니다.
@@ -186,6 +348,38 @@ Connection: keep-alive
 <summary> ✅ API Request / Response</summary>
 <div markdown="1">
 
+Request
+
+```
+POST {{point-api-host}}/api/v1/points/redeem/cancel
+Content-Type: application/json
+X_MEMBER_ID: 119
+```
+
+Response OK
+
+```
+HTTP/1.1 200 
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Mon, 19 Jun 2023 12:24:21 GMT
+Keep-Alive: timeout=60
+Connection: keep-alive
+
+{
+  "code": "000",
+  "message": "정상 처리",
+  "data": {
+    "messageId": "20230619212420992-13ce8da4",
+    "originSearchId": "p-20230619212345295-ceac795e",
+    "tradeNo": "custom-trade-id-2",
+    "eventType": "CANCEL",
+    "eventDetailType": "USE_CANCEL",
+    "point": 700.00,
+    "memberId": 119
+  }
+}
+```
 </div>
 </details>
 
