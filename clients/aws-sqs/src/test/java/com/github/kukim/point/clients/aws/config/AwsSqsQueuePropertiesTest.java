@@ -18,7 +18,10 @@ class AwsSqsQueuePropertiesTest {
 
 	@Test
 	void testAwsSqsQueueProperties() {
-		assertThat(awsSqsQueueProperties.getPointCommand()).isNotNull();
-		assertThat(awsSqsQueueProperties.getPointCommandDlq()).isNotNull();
+		assertThat(awsSqsQueueProperties.getPointEarn()).isNotNull();
+		assertThat(awsSqsQueueProperties.getPointEarnDlq()).isNotNull();
+		assertThat(awsSqsQueueProperties.getPointRedeem()).isNotNull();
+		assertThat(awsSqsQueueProperties.getPointCancel()).isNotNull();
+		assertThat(awsSqsQueueProperties.getPointCache()).isNotNull();
 	}
 }
