@@ -28,7 +28,7 @@ X_MEMBER_ID: 119
         client.assert(jsonData.message === "정상 처리")
         client.assert(jsonData.data.eventType === "SAVE")
         client.assert(jsonData.data.eventDetailType === "SAVE_EVENT")
-        client.assert(jsonData.data.memberId === "119")
+        client.assert(jsonData.data.memberId === 119)
     });
 %}
 
@@ -56,7 +56,7 @@ X_MEMBER_ID: 119
         client.assert(jsonData.message === "정상 처리")
         client.assert(jsonData.data.eventType === "SAVE")
         client.assert(jsonData.data.eventDetailType === "SAVE_EVENT")
-        client.assert(jsonData.data.memberId === "119")
+        client.assert(jsonData.data.memberId === 119)
 
     });
 %}
@@ -85,7 +85,7 @@ X_MEMBER_ID: 119
         client.assert(jsonData.message === "정상 처리")
         client.assert(jsonData.data.eventType === "SAVE")
         client.assert(jsonData.data.eventDetailType === "SAVE_EVENT")
-        client.assert(jsonData.data.memberId === "119")
+        client.assert(jsonData.data.memberId === 119)
 
     });
 %}
@@ -114,7 +114,7 @@ X_MEMBER_ID: 119
         client.assert(jsonData.message === "정상 처리")
         client.assert(jsonData.data.eventType === "USE")
         client.assert(jsonData.data.eventDetailType === "USE_BUY")
-        client.assert(jsonData.data.memberId === "119")
+        client.assert(jsonData.data.memberId === 119)
     });
 %}
 
@@ -132,11 +132,11 @@ X_MEMBER_ID: 119
         var jsonData = response.body
         client.assert(jsonData.code === "000")
         client.assert(jsonData.message === "정상 처리")
-        client.assert(jsonData.data.memberId === "119")
+        client.assert(jsonData.data.memberId === 119)
     });
 %}
 
-### 3-2: 포인트 적립/사용 내역 조회(총 5개)
+### 3-2: 포인트 적립/사용 내역 조회(총 4개)
 GET {{point-api-host}}/api/v1/members/points?size=10
 Content-Type: application/json
 X_MEMBER_ID: 119
@@ -150,7 +150,7 @@ X_MEMBER_ID: 119
         var jsonData = response.body
         client.assert(jsonData.code === "000")
         client.assert(jsonData.message === "정상 처리")
-        client.assert(jsonData.data.content.length == 5)
+        client.assert(jsonData.data.content.length == 4)
     });
 %}
 
@@ -174,7 +174,7 @@ X_MEMBER_ID: 119
         client.assert(jsonData.message === "정상 처리")
         client.assert(jsonData.data.eventType === "CANCEL")
         client.assert(jsonData.data.eventDetailType === "USE_CANCEL")
-        client.assert(jsonData.data.memberId === "119")
+        client.assert(jsonData.data.memberId === 119)
     });
 %}
 
@@ -192,7 +192,7 @@ X_MEMBER_ID: 119
         var jsonData = response.body
         client.assert(jsonData.code === "000")
         client.assert(jsonData.message === "정상 처리")
-        client.assert(jsonData.data.memberId === "119")
+        client.assert(jsonData.data.memberId === 119)
     });
 %}
 
