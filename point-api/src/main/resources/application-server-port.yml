@@ -3,4 +3,4 @@ spring:
     activate:
       on-profile: port-local
 server:
-  port: 8090
+  port: 8080
