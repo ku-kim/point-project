@@ -16,4 +16,13 @@ public interface PointHistoryRepository extends JpaRepository<PointHistory, Long
 		ORDER BY ph.earnPointId
 	""")
 	List<PointRemainHistory> findAllByEarnEventType(Long memberId);
+
+	@Query("""
+		SELECT ph
+		FROM PointHistory ph 
+		WHERE ph.memberId = :memberId
+		AND ph.originPointId = :originSearchId
+		AND ph.eventType = 'USE'
+""")
+	List<PointHistory> findAllByMemberIdAndOriginPointIdAndUseType(Long memberId, String originSearchId);
 }

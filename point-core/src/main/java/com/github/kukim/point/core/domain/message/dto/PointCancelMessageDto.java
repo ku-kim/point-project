@@ -32,7 +32,7 @@ public class PointCancelMessageDto {
 
 	public static PointCancelMessageDto of(PointCancelMessage message) {
 		return new PointCancelMessageDto(message.getMessageId(),
-			message.getOriginSearchId(),
+			message.getOriginEarnPointSearchId(),
 			message.getTradeNo(), message.getEventType(), message.getEventDetailType(),
 			message.getPoint(), message.getMemberId());
 	}

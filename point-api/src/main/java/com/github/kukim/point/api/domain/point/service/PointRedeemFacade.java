@@ -38,7 +38,7 @@ public class PointRedeemFacade {
 	}
 
 	@Transactional
-	public PointCancelMessageDto cancel(Long memberId, PointCancelCommand command) {
+	public PointCancelMessageDto redeemCancel(Long memberId, PointCancelCommand command) {
 		log.info("memberId: {}, tradeId: {}", memberId, command);
 		Point redeemPoint = pointRepository.findRedeemPointByMemberIdAndTradeId(memberId, command.getTradeId())
 			.orElseThrow(NotFoundPointByMemberIdAndTradeId::new);

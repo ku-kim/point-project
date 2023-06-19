@@ -38,10 +38,12 @@ public class MemberService implements MemberFinder {
 		if (curPointBalance.isPresent()) {
 			pointBalance = curPointBalance.get();
 			log.info("[point-api] curPointBalance cache Hit: {}", pointBalance);
+			return MemberPointBalanceDto.of(pointBalance);
 		}
 
 		BigDecimal sumPoint = pointRepository.sumPointByMemberId(memberId);
 		pointBalance = new PointBalance(memberId, sumPoint, LocalDateTime.now());
+		pointCacheRepository.save(pointBalance);
 		log.info("[point-api] curPointBalance cache MISS: {}", pointBalance);
 
 		return MemberPointBalanceDto.of(pointBalance);

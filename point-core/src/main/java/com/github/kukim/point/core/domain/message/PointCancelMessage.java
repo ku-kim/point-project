@@ -18,7 +18,7 @@ import lombok.ToString;
 public class PointCancelMessage {
 
 	private String messageId;
-	private String originSearchId;
+	private String originEarnPointSearchId;
 	private String tradeNo;
 	private EventType eventType;
 	private EventDetailType eventDetailType;
@@ -26,10 +26,10 @@ public class PointCancelMessage {
 	private String description;
 	private Long memberId;
 
-	private PointCancelMessage(String messageId, String originSearchId, String tradeNo, EventType eventType,
+	private PointCancelMessage(String messageId, String originEarnPointSearchId, String tradeNo, EventType eventType,
 		EventDetailType eventDetailType, BigDecimal point, String description, Long memberId) {
 		this.messageId = messageId;
-		this.originSearchId = originSearchId;
+		this.originEarnPointSearchId = originEarnPointSearchId;
 		this.tradeNo = tradeNo;
 		this.eventType = eventType;
 		this.eventDetailType = eventDetailType;

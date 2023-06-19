@@ -71,7 +71,7 @@ public class PointRestController {
 	 */
 	@PostMapping("/api/v1/points/redeem/cancel")
 	public CustomApiResponse<?> cancelPoint(@RequestHeader(HEADER_MEMBER_ID) Long memberId, @RequestBody @NotBlank PointCancelCommand command) {
-		PointCancelMessageDto body = pointRedeemFacade.cancel(memberId, command);
+		PointCancelMessageDto body = pointRedeemFacade.redeemCancel(memberId, command);
 		return CustomApiResponseGenerator.success(body);
 	}
 
