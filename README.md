@@ -9,13 +9,14 @@
     - [E2E 테스트](#e2e-테스트)
   - [실행 방법](#실행-방법)
   - [추가 사용 기술 설명](#추가-사용-기술-설명)
+  - [개선할 점](#개선할-점)
 
 ---
 
 # 회원 포인트 서비스
 
 간단히 회원 포인트 서비스를 구현합니다.  
-로깅/모니터링, CI/CD, 인증/권한, API Docs는 고려하지 않았습니다.
+로깅/모니터링, CI/CD, 인증/권한은 고려하지 않았습니다.
 
 ## 프로젝트 구조
 ```bash
@@ -53,8 +54,8 @@
 ### Data
 
 포인트 서비스의 적립 후 사용 / 사용 취소 로직은 단순하지 않았습니다.  
-예를 들어 유저 A가 포인트 적립이 100 / 200 / 100 순서로 총 400원이 적립되었습니다.  
-만약 포인트 사용이 -150 이라면, 단순히 잔액 250원이 아니라 적립된 순서로 적립금을 사용해야하는 문제가 있습니다. 또한 취소도 마찬가지로 사용의 반대로 적립금을 돌려줘야 합니다.  
+예를 들어 유저 A가 포인트 적립이 100 / 200 / 800 순서로 총 1100원이 적립되었습니다.  
+만약 포인트 사용이 -700원 이라면, 단순히 잔액 400원이 남는것을 포함해 적립된 순서로 적립금을 사용해야합니다. 또한 취소도 마찬가지로 사용의 반대로 적립금을 돌려줘야 합니다.  
 이를 위해서 `Point` 와 `PointHistory` 스키마 두 개를 만들었습니다. `Point` 에서는 전체 포인트 적립, 사용, 사용취소 정보만 들어있고 `PointHistory`에서 어떤 Point가 사용되었는지 디테일하게 관리합니다.  
 
 적립된 포인트 만큼 사용 / 사용 취소 예
@@ -453,3 +454,12 @@ Connection: keep-alive
 
 - Embedded AWS SQS: "com.github.jojoldu.spring-boot-aws-mock:mock-sqs-spring-boot-starter"  
     - point-api 서비스는 :clients:aws-sqs 모듈을 의존하고 있습니다. aws-sqs 모듈의 [application-aws-sqs.yml](https://github.com/ku-kim/point-project/blob/main/clients/aws-sqs/src/main/resources/application-aws-sqs.yml)에서 embedded AWS SQS 에서 사용할 큐를 설정하고 있습니다.
+
+## 개선할 점
+
+- API Docs 추가
+- AWS SQS 메세지 실패 시 복구 로직 추가 (Dead Letter Queue 추가)
+- 부하 테스트와 성능 개선
+- point-worker 도메인 별 분리
+- Application 단에 통합 테스트 추가
+- ...
