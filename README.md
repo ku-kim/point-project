@@ -26,7 +26,7 @@
 ├── point-api # Multi Module: point-api (서비스)
 ├── point-batch # Multi Module: point-batch (서비스(미구현))
 ├── point-core # Multi Module: point-core (모듈)
-├── point-worker # Multi Module: point-worker (서비스, 메세지 큐 Consumer)
+├── point-worker # Multi Module: point-worker (서비스)
 └── httpclient # HTTP Client를 활용한 E2E 테스트
 
 ```
@@ -49,7 +49,7 @@
   - worker를 기능마다 구분할 수 있으나 현재는 하나의 worker 서비스에 구현
 
 
-![아키텍처](https://github.com/ku-kim/point-project/assets/57086195/d6cc4646-f135-41c4-a057-23ff18a1714d.jpeg)
+![아키텍처](https://imgur.com/qI6EjNs.png)
 
 ### Data
 
@@ -60,10 +60,10 @@
 
 적립된 포인트 만큼 사용 / 사용 취소 예
 
-![Login](https://github.com/ku-kim/point-project/assets/57086195/9d74929b-951b-4168-9cdd-1cd9a4a6e2b1)
+![Login](https://imgur.com/pee6hNy.png)
 
 
-![ERD](https://github.com/ku-kim/point-project/assets/57086195/c37cc24e-fc34-4378-9e51-140f54c9f9b8)
+![ERD](https://imgur.com/ke3GWxb.png)
 
 
 ## API 기능 상세
@@ -411,15 +411,15 @@ Connection: keep-alive
 
 ### 단위 테스트
 
-![test](https://github.com/ku-kim/point-project/assets/57086195/53cf22ed-4934-4985-8922-dcd05e876657)
+![unittest](https://imgur.com/sYsjU5D.png)
 
 ### E2E 테스트
 
 서버를 모두 띄운 후 httpclient 폴더 하위에 .http를 실행하여 E2E 테스트 가능
 
-![e2e-1](https://github.com/ku-kim/point-project/assets/57086195/4e26ed8b-d1de-4dd3-a464-1213b51eb730)
+![e2e-1](https://imgur.com/5odPy77.png)
 
-![e2e-2](https://github.com/ku-kim/point-project/assets/57086195/5c71c57e-3273-4662-acb6-0c1ea97159ed)
+![e2e-2](https://imgur.com/LDklU4S.png)
 
 
 
@@ -439,12 +439,12 @@ Connection: keep-alive
 
 ✅ point-api 실행 시 embeddded redis cluster 환경을 위해 network 연결을 Allow 해야합니다.
 
-![redis](https://github.com/ku-kim/point-project/assets/57086195/6d3e13bb-d83c-43cf-9a83-21833693f141)
+![Imgur](https://imgur.com/q3kQvgR.png)
 
 
 실행 결과
 
-![run](https://github.com/ku-kim/point-project/assets/57086195/fbeec931-5d9c-45be-b7c6-a353ee0143f0)
+![run](https://imgur.com/VZmNay0.png)
 
 
 ## 추가 사용 기술 설명
