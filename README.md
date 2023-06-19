@@ -1,6 +1,8 @@
 - [회원 포인트 서비스](#회원-포인트-서비스)
   - [프로젝트 구조](#프로젝트-구조)
-  - [아키텍처](#아키텍처)
+  - [아키텍처 \& Data](#아키텍처--data)
+    - [아키텍처](#아키텍처)
+    - [Data](#data)
   - [API 기능 상세](#api-기능-상세)
   - [테스트](#테스트)
     - [단위 테스트](#단위-테스트)
@@ -28,7 +30,9 @@
 
 ```
 
-## 아키텍처
+## 아키텍처 & Data
+
+### 아키텍처
 
 멀티 모듈 서비스와 메세지 큐를 사용하여 구현합니다.   
 외부 의존성은 모두 embedded를 사용합니다. (h2, redis cluster, AWS SQS)  
@@ -45,6 +49,20 @@
 
 
 ![아키텍처](https://github.com/ku-kim/point-project/assets/57086195/d6cc4646-f135-41c4-a057-23ff18a1714d.jpeg)
+
+### Data
+
+포인트 서비스의 적립 후 사용 / 사용 취소 로직은 단순하지 않았습니다.  
+예를 들어 유저 A가 포인트 적립이 100 / 200 / 100 순서로 총 400원이 적립되었습니다.  
+만약 포인트 사용이 -150 이라면, 단순히 잔액 250원이 아니라 적립된 순서로 적립금을 사용해야하는 문제가 있습니다. 또한 취소도 마찬가지로 사용의 반대로 적립금을 돌려줘야 합니다.  
+이를 위해서 `Point` 와 `PointHistory` 스키마 두 개를 만들었습니다. `Point` 에서는 전체 포인트 적립, 사용, 사용취소 정보만 들어있고 `PointHistory`에서 어떤 Point가 사용되었는지 디테일하게 관리합니다.  
+
+적립된 포인트 만큼 사용 / 사용 취소 예
+
+![Login](https://github.com/ku-kim/point-project/assets/57086195/9d74929b-951b-4168-9cdd-1cd9a4a6e2b1)
+
+
+![ERD](https://github.com/ku-kim/point-project/assets/57086195/c37cc24e-fc34-4378-9e51-140f54c9f9b8)
 
 
 ## API 기능 상세
@@ -401,7 +419,6 @@ Connection: keep-alive
 ![e2e-1](https://github.com/ku-kim/point-project/assets/57086195/4e26ed8b-d1de-4dd3-a464-1213b51eb730)
 
 ![e2e-2](https://github.com/ku-kim/point-project/assets/57086195/5c71c57e-3273-4662-acb6-0c1ea97159ed)
-
 
 
 
